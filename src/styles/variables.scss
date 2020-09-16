@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
+$mintGreen: #4cb69f;
+$white: whiteSmoke;
+
+@mixin headerFont($fontColor, $fontSize) {
+  color:  $fontColor;
+  font-family: 'Varela Round', sans-serif;
+  font-size: $fontSize;
+}
+
+@mixin background {
+  background-image: linear-gradient(white, #4cb69f);
+}
+
+
+
