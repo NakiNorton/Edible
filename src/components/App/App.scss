@@ -1,0 +1,20 @@
+@import '../../styles/variables.scss';
+
+.App {
+  text-align: center;
+  min-height: 40em;
+  @include background();
+  
+}
+
+h1 {
+  @include headerFont($mintGreen, 15em)
+}
+
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
