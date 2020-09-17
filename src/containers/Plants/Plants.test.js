@@ -12,7 +12,7 @@ import { rootReducer } from '../../reducers';
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-describe('Plants component', () => {
+describe('Plants Container', () => {
   let fetchedRoots;
   let fetchedFlowers;
   beforeEach(() => {

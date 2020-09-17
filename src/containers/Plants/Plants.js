@@ -12,15 +12,16 @@ class Plants extends Component {
     super()
     this.state = {
       error: '',
+      allPlants: []
     } 
   }
 
   async componentDidMount() {
     const { setEdibleRoots, setEdibleFlowers } = this.props;
-    let roots = await fetchEdibleRoots()
-    let flowers = await fetchEdibleFlowers()
-    setEdibleFlowers(flowers)
-    setEdibleRoots(roots)
+    let rootsData = await fetchEdibleRoots()
+    let flowersData = await fetchEdibleFlowers()
+    setEdibleFlowers(flowersData)
+    setEdibleRoots(rootsData) 
   }
 
 // filterPlants (input)
@@ -33,7 +34,6 @@ class Plants extends Component {
   render() {
     const { roots, flowers } = this.props;
     const plants = roots.concat(flowers)
-    console.log('combined lists', plants)
     
     const plantInfo = plants.map(plant => {
      return <PlantCard 
