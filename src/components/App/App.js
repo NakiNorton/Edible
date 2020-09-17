@@ -1,14 +1,16 @@
 import React from 'react';
+import { Route } from 'react-router-dom';
+import Header from '../Header/Header'
+import Plants from '../../containers/Plants/Plants'
 import './App.scss';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Edible.</h1>
-      </header>
-    </div>
-  );
+    <main className="App">
+      <Header />
+      <Plants />
+    </main>
+  )
 }
 
 export default App;

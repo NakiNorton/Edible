@@ -2,6 +2,9 @@
 
 $mintGreen: #4cb69f;
 $white: whiteSmoke;
+$orange: #FC4A1A;
+$blueGreen: #4ABDAC;
+$yellow: #F7B733; 
 
 @mixin headerFont($fontColor, $fontSize) {
   color:  $fontColor;
@@ -10,7 +13,13 @@ $white: whiteSmoke;
 }
 
 @mixin background {
-  background-image: linear-gradient(white, #4cb69f);
+  background-color: $white;
+}
+
+@mixin textFont($fontColor, $fontSize) {
+  color:  $fontColor;
+  font-family: 'Varela Round', sans-serif;
+  font-size: $fontSize;
 }
 
 

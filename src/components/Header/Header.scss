@@ -1,1 +1,52 @@
 @import '../../styles/variables.scss';
+
+
+
+ul {
+  display: grid;
+  grid-auto-columns: 2fr 0.5fr 0.5fr;
+  grid-template-areas:
+  'header home saved';
+  grid-gap: 10px;
+  list-style: none;
+  margin: 0px;
+  padding: 5vh;
+  align-items: center;
+  justify-items: center;
+}
+
+.app-header {
+  @include headerFont($mintGreen, 12vh);
+  grid-area: header;
+  margin: 0px;
+}
+
+.home {
+  grid-area: home;
+  // border-right: 2px solid $orange;
+}
+
+.saved {
+  grid-area: saved;
+}
+
+.nav-link {
+  padding-right: 2.5vh;
+  text-decoration: none;
+  color: $orange;
+  font-size: 30px;
+  margin-top: 50em;
+  // border-bottom: 3px solid $orange;
+}
+
+@media (max-width: 950px) {
+  ul {
+  grid-template-areas:
+  'header'
+  'home'
+  'saved';
+   align-items: center;
+  justify-items: center;
+  }
+
+}

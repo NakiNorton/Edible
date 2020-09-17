@@ -1,0 +1,13 @@
+@import '../../styles/variables.scss';
+
+
+.plant-container {
+  padding: 25px;
+  display: grid; 
+  font-size: 14px;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  margin-top: 8em;
+  margin-left: 5em;
+  margin-right: 5em;
+}
