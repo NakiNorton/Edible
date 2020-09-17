@@ -1,9 +1,14 @@
-export const setEdibleRoots = (roots) => ({
+export const setEdibleRoots = (plants) => ({
   type: 'SET_EDIBLE_ROOTS',
-  roots
+  plants
 });
 
-export const setEdibleFlowers = (flowers) => ({
+export const setEdibleFlowers = (plants) => ({
   type: 'SET_EDIBLE_FLOWERS',
-  flowers
+  plants
+});
+
+export const setEdibleLeaves = (plants) => ({
+  type: 'SET_EDIBLE_LEAVES',
+  plants
 });
