@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import PlantCard from '../../components/PlantCard/PlantCard'
-import { fetchEdibleRoots, fetchEdibleFlowers } from '../../apiCalls'
+import { fetchEdiblePlants } from '../../apiCalls'
 import { connect } from 'react-redux'
-import { setEdibleFlowers, setEdibleRoots } from '../../actions';
+import { setEdibleFlowers, setEdibleRoots, setEdibleLeaves, setEdibleSeeds } from '../../actions';
 import './Plants.scss';
 
 
@@ -12,38 +12,43 @@ class Plants extends Component {
     super()
     this.state = {
       error: '',
-      allPlants: []
     } 
   }
 
   async componentDidMount() {
-    const { setEdibleRoots, setEdibleFlowers } = this.props;
-    let rootsData = await fetchEdibleRoots()
-    let flowersData = await fetchEdibleFlowers()
-    setEdibleFlowers(flowersData)
-    setEdibleRoots(rootsData) 
+    const { setEdibleRoots, setEdibleFlowers, setEdibleLeaves, setEdibleSeeds } = this.props;
+    try {
+      let rootsData = await fetchEdiblePlants('roots')
+      let flowersData = await fetchEdiblePlants('flowers')
+      let leavesData = await fetchEdiblePlants('leaves')
+      let seedsData = await fetchEdiblePlants('seeds')
+      setEdibleRoots(rootsData) 
+      setEdibleFlowers(flowersData)
+      
+      setEdibleSeeds(seedsData)
+      setEdibleLeaves(leavesData)
+     
+    }
+    catch(error) {
+      console.warn(error)
+    }
   }
 
-// filterPlants (input)
-// if input matches listName(s) return listname 
-// allplants
-// roots
-// flowers
-
-
   render() {
-    const { roots, flowers } = this.props;
-    const plants = roots.concat(flowers)
-    
-    const plantInfo = plants.map(plant => {
-     return <PlantCard 
-        key={plant.id}
+    const { plants } = this.props;
+    const plantKeys = Object.keys(plants)
+    let plantInfo;
+    plantKeys.forEach(key => {
+      return plantInfo = plants[key].map((plant, i) => {
+      return <PlantCard 
+        key={i}
         id={plant.id}
         plantName={plant.common_name}
         image={plant.image_url}
         sciName={plant.scientific_name}
-      />
+        />
     })
+  })
 
     return (
       <section className='Plants'>
@@ -56,14 +61,15 @@ class Plants extends Component {
   }
 }
 
-export const mapStateToProps = ({ roots, flowers }) => ({
-  roots,
-  flowers
+export const mapStateToProps = ({ plants }) => ({
+ plants
 })
 
 export const mapDispatchToProps = {
     setEdibleRoots,
-    setEdibleFlowers
+    setEdibleFlowers,
+    setEdibleLeaves,
+    setEdibleSeeds
   }
 
 export default connect(mapStateToProps, mapDispatchToProps) (Plants)
