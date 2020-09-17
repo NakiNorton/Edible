@@ -1,8 +1,6 @@
 import { combineReducers } from 'redux'
-import { roots } from './roots.reducers'
-import { flowers } from './flowers.reducers'
+import { plants } from './plants.reducers'
 
 export const rootReducer = combineReducers({
-  roots,
-  flowers
+  plants
 })
