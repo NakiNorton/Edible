@@ -16,5 +16,11 @@ $yellow: #F7B733;
   background-image: linear-gradient($white, $mintGreen);
 }
 
+@mixin textFont($fontColor, $fontSize) {
+  color:  $fontColor;
+  font-family: 'Varela Round', sans-serif;
+  font-size: $fontSize;
+}
+
 
 
