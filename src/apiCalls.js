@@ -1,3 +1,4 @@
+import { cleanData } from './cleanData'
 const key = process.env.REACT_APP_API_KEY;
 
 export async function fetchEdibleRoots() {
@@ -7,8 +8,8 @@ export async function fetchEdibleRoots() {
     }
   })
   const edibleRoots = await checkResponse(response);
-  console.log('api', edibleRoots.data)
-  return edibleRoots.data;  
+  const cleanedData = cleanData(edibleRoots.data)
+  return cleanedData; 
 }
 
 export async function fetchEdibleFlowers() {
@@ -18,7 +19,8 @@ export async function fetchEdibleFlowers() {
     }
   })
   const edibleFlowers = await checkResponse(response);
-  return edibleFlowers.data;
+  const cleanedData = cleanData(edibleFlowers.data)
+  return cleanedData; 
 }
 
 const checkResponse = async (response) => {
