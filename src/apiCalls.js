@@ -1,25 +1,14 @@
 import { cleanData } from './cleanData'
 const key = process.env.REACT_APP_API_KEY;
 
-export async function fetchEdibleRoots() {
+export async function fetchEdiblePlants(list) {
   const response = await fetch('https://fe-cors-proxy.herokuapp.com', {
     headers: {
-      "Target-URL": `https://trefle.io/api/v1/plants?token=${key}&filter[edible_part]=roots`
+      "Target-URL": `https://trefle.io/api/v1/plants?token=${key}&filter[edible_part]=${list}`
     }
   })
   const edibleRoots = await checkResponse(response);
-  const cleanedData = cleanData(edibleRoots.data)
-  return cleanedData; 
-}
-
-export async function fetchEdibleFlowers() {
-  const response = await fetch('https://fe-cors-proxy.herokuapp.com', {
-    headers: {
-      "Target-URL": `https://trefle.io/api/v1/plants?token=${key}&filter[edible_part]=flowers`
-    }
-  })
-  const edibleFlowers = await checkResponse(response);
-  const cleanedData = cleanData(edibleFlowers.data)
+  const cleanedData = cleanData(edibleRoots.data, list)
   return cleanedData; 
 }
 
