@@ -13,7 +13,7 @@ $yellow: #F7B733;
 }
 
 @mixin background {
-  background-image: linear-gradient($white, $mintGreen);
+  background-color: $white;
 }
 
 @mixin textFont($fontColor, $fontSize) {

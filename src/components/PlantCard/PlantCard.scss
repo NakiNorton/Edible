@@ -5,15 +5,16 @@
   max-width: 440px;
   border-radius: .5em; 
   background-size: cover; 
-  border: 5px solid white;  
+  border: 8px solid white;  
   box-shadow: inset 0 0 15px white;
 }
 
-ul {
-  // text-align: center;
-  text-decoration: none;
+.PlantCard {
+  margin-bottom: 6em;
 }
 
+
 .plant-details {
-  @include textFont($mintGreen, 24px)
+  @include textFont($mintGreen, 24px);
+  text-align: left;
 }
