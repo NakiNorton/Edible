@@ -12,6 +12,10 @@ export const plants = (state = [], action) => {
       const newLeavesState = { ...state };
       newLeavesState.Leaves = action.plants
       return newLeavesState
+    case 'SET_EDIBLE_SEEDS':
+      const newSeedsState = { ...state };
+      newSeedsState.Seeds = action.plants
+      return newSeedsState
     default:
       return state
   }
