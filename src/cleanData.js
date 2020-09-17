@@ -1,13 +1,17 @@
+
 export const cleanData = (plants, list) => {
-  let filteredData = plants.map(plant => {
+  let reducedData = plants.map(plant => {
    return {  
-      common_name: plant.common_name,
-      scientific_name: plant.scientific_name,
-      id: plant.id + Date.now(),
-      image_url: plant.image_url,
+      common_name: plant.common_name || null,
+      scientific_name: plant.scientific_name || null,
+      id: plant.id + Date.now() || Date.now(),
+      image_url: plant.image_url || null,
       list: list,
       plantSaved: false,
     }
   })
-  return filteredData
+  let filteredData = reducedData.filter(plant => 
+    !Object.values(plant).includes(null)
+  )
+  return filteredData;
 }
