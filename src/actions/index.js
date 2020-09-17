@@ -12,3 +12,8 @@ export const setEdibleLeaves = (plants) => ({
   type: 'SET_EDIBLE_LEAVES',
   plants
 });
+
+export const setEdibleSeeds = (plants) => ({
+  type: 'SET_EDIBLE_SEEDS',
+  plants
+});
