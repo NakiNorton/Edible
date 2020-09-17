@@ -3,11 +3,11 @@ const key = process.env.REACT_APP_API_KEY;
 export async function fetchPlants() {
   const response = await fetch('https://fe-cors-proxy.herokuapp.com', {
     headers: {
-      "Target-URL": `https://trefle.io/api/v1/plants?token=${key}&filter[edible_part]=roots`
+      "Target-URL": `https://trefle.io/api/v1/plants?token=${key}&filter[edible_part]=roots,flowers`
     }
   })
   const plants = await checkResponse(response);
-  return plants;
+  return plants.data;
 }
 
 const checkResponse = async (response) => {
@@ -18,3 +18,6 @@ const checkResponse = async (response) => {
     return response.json();
   }
 }
+
+
+ 
