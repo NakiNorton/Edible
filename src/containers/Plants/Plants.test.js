@@ -13,10 +13,10 @@ const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 describe('Plants Container', () => {
-  let fetchedRoots;
-  let fetchedFlowers;
+  let fetchedPlants;
   beforeEach(() => {
-    fetchedRoots = [
+    fetchedPlants = {
+      roots: [
       { id: 10978, 
         common_name: 'garden ginger', 
         scientific_name: 'Zingiber officinale', 
@@ -28,21 +28,21 @@ describe('Plants Container', () => {
           scientific_name: 'Bellis perennis',
           image_url: 'https://bs.floristic.org/image/o/430'
         }
-    ]
-    fetchedFlowers = [
-      {
-        id: 23768,
+      ],
+      flowers: [
+        {
+          id: 23768,
           common_name: 'garden cornflower',
           scientific_name: 'Centaurea cyanus',
           image_url: 'https://bs.floristic.org/image/o/2cd'
-      }
-    ]
+        }
+      ]
+    }
   })
 
   it('should render the page heading', () => {
     const store = mockStore({
-      roots: fetchedRoots,
-      flowers: fetchedFlowers,
+      plants: fetchedPlants
     })
 
     render(
@@ -60,8 +60,7 @@ describe('Plants Container', () => {
 
   it('should render the plants container', () => {
     const store = mockStore({
-      roots: fetchedRoots,
-      flowers: fetchedFlowers,
+      plants: fetchedPlants
     })
 
     render(
@@ -71,17 +70,11 @@ describe('Plants Container', () => {
         </MemoryRouter>
       </Provider>
     )
-    
-    const rootName = screen.getByText('Common name: garden ginger')
-    const rootSciName = screen.getByText('Scientific name: Zingiber officinale')
-    const rootImg = screen.getByAltText('garden ginger')
+
     const flowerName = screen.getByText('Common name: garden cornflower')
     const flowerSciName = screen.getByText('Scientific name: Centaurea cyanus')
     const flowerImg = screen.getByAltText('garden cornflower')
 
-    expect(rootName).toBeInTheDocument();
-    expect(rootSciName).toBeInTheDocument();
-    expect(rootImg).toBeInTheDocument();
     expect(flowerName).toBeInTheDocument();
     expect(flowerSciName).toBeInTheDocument();
     expect(flowerImg).toBeInTheDocument();
