@@ -75,4 +75,21 @@ describe('Plants Container', () => {
     expect(flowerSciName).toBeInTheDocument();
     expect(flowerImg).toBeInTheDocument();
   })
+
+  it('should render a search container', () => {
+    const store = mockStore({
+      plants: fetchedPlants
+    })
+
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <Plants />
+        </MemoryRouter>
+      </Provider>
+    )
+
+    const searchArea = screen.getByPlaceholderText('Search by plant name..')
+    expect(searchArea).toBeInTheDocument()
+  })
 })
