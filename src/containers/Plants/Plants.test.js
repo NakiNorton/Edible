@@ -15,29 +15,25 @@ const mockStore = configureMockStore(middlewares);
 describe('Plants Container', () => {
   let fetchedPlants;
   beforeEach(() => {
-    fetchedPlants = {
-      roots: [
+    fetchedPlants = [
       { id: 10978, 
         common_name: 'garden ginger', 
         scientific_name: 'Zingiber officinale', 
         image_url: 'https://bs.floristic.org/image/o/bd13'
       },
-        {
-        id: 19630,
-          common_name: 'lawndaisy',
-          scientific_name: 'Bellis perennis',
-          image_url: 'https://bs.floristic.org/image/o/430'
-        }
-      ],
-      flowers: [
-        {
-          id: 23768,
-          common_name: 'garden cornflower',
-          scientific_name: 'Centaurea cyanus',
-          image_url: 'https://bs.floristic.org/image/o/2cd'
-        }
-      ]
-    }
+      {
+      id: 19630,
+        common_name: 'lawndaisy',
+        scientific_name: 'Bellis perennis',
+        image_url: 'https://bs.floristic.org/image/o/430'
+      },
+      {
+        id: 23768,
+        common_name: 'garden cornflower',
+        scientific_name: 'Centaurea cyanus',
+        image_url: 'https://bs.floristic.org/image/o/2cd'
+      }
+    ]
   })
 
   it('should render the page heading', () => {
