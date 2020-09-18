@@ -56,7 +56,7 @@ class Plants extends Component {
     e.preventDefault()
     console.log(e.target.input)
     this.searchPlants(this.state.searchValue)
-    this.setState({ searchValue: '' })
+ 
   }
 
   handleInputChange = (e) => {
@@ -92,7 +92,7 @@ class Plants extends Component {
     this.setState({ filterInput: e.target.value })
   }
 
-  displayFilteredResults = (e) => 
+  displayFilteredResults = (e) => {
     e.preventDefault()
     const { filterInput } = this.state
     const { plants } = this.props
