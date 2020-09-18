@@ -80,6 +80,7 @@ class Plants extends Component {
         plantName={plant.common_name}
         image={plant.image_url}
         sciName={plant.scientific_name}
+        list={plant.list}
       />
     })
     return plantInfo
