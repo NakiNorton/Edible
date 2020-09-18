@@ -8,7 +8,7 @@ describe('actions', () => {
       plants: [1, 2, 3]
     }
 
-    const result = actions.setEdibleRoots(plants);
+    const result = actions.setEdiblePlants(plants);
     expect(result).toEqual(expectedAction);
   });
 
