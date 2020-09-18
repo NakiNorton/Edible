@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 import PlantCard from '../../components/PlantCard/PlantCard'
 import { fetchEdiblePlants } from '../../apiCalls'
 import { connect } from 'react-redux'
-import { setEdibleFlowers, setEdibleRoots, setEdibleLeaves, setEdibleSeeds } from '../../actions';
+import { setEdiblePlants } from '../../actions';
 import './Plants.scss';
 
 
@@ -16,18 +16,20 @@ class Plants extends Component {
   }
 
   async componentDidMount() {
-    const { setEdibleRoots, setEdibleFlowers, setEdibleLeaves, setEdibleSeeds } = this.props;
+    const { setEdiblePlants } = this.props;
     try {
-      let rootsData = await fetchEdiblePlants('roots')
-      let flowersData = await fetchEdiblePlants('flowers')
-      let leavesData = await fetchEdiblePlants('leaves')
-      let seedsData = await fetchEdiblePlants('seeds')
-      setEdibleRoots(rootsData) 
-      setEdibleFlowers(flowersData)
-      
-      setEdibleSeeds(seedsData)
-      setEdibleLeaves(leavesData)
-     
+      const leavesData = await fetchEdiblePlants('leaves')
+      const rootsData = await fetchEdiblePlants('roots')
+      const flowersData = await fetchEdiblePlants('flowers')
+      const fruitsData = await fetchEdiblePlants('fruits')
+      const seedsData = await fetchEdiblePlants('seeds')
+      const newDataSet = leavesData.concat(
+        rootsData, 
+        flowersData, 
+        fruitsData,
+        seedsData
+        )
+      setEdiblePlants(newDataSet)
     }
     catch(error) {
       console.warn(error)
@@ -36,23 +38,30 @@ class Plants extends Component {
 
   render() {
     const { plants } = this.props;
-    const plantKeys = Object.keys(plants)
-    let plantInfo;
-    plantKeys.forEach(key => {
-      return plantInfo = plants[key].map((plant, i) => {
-      return <PlantCard 
+    let plantInfo = Object.keys(plants).map((key, i) => {
+      console.log(plants[key].common_name)
+      return <PlantCard
         key={i}
-        id={plant.id}
-        plantName={plant.common_name}
-        image={plant.image_url}
-        sciName={plant.scientific_name}
+        id={plants[key].id}
+        plantName={plants[key].common_name}
+        image={plants[key].image_url}
+        sciName={plants[key].scientific_name}
         />
     })
-  })
 
     return (
       <section className='Plants'>
         <h1 className='page-heading'>Browse Plants</h1>
+        <>
+        <div className='search-container'>
+          <div className='search'>
+            <input type='text' className='searchInput' placeholder='What are you looking for?' />
+              <button type='submit' className='searchButton'>
+              <i className='search-icon'></i>
+              </button>
+           </div>
+        </div>
+        </>
         <section className='plant-container'>
           {plantInfo}
         </section>
@@ -66,10 +75,7 @@ export const mapStateToProps = ({ plants }) => ({
 })
 
 export const mapDispatchToProps = {
-    setEdibleRoots,
-    setEdibleFlowers,
-    setEdibleLeaves,
-    setEdibleSeeds
+    setEdiblePlants
   }
 
 export default connect(mapStateToProps, mapDispatchToProps) (Plants)
