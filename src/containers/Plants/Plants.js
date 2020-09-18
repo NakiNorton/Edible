@@ -92,7 +92,7 @@ class Plants extends Component {
     this.setState({ filterInput: e.target.value })
   }
 
-  displayFilteredResults = (e) => {
+  displayFilteredResults = (e) => 
     e.preventDefault()
     const { filterInput } = this.state
     const { plants } = this.props
@@ -114,8 +114,7 @@ class Plants extends Component {
               onChange={this.handleInputChange}
               value={this.state.search}
               />
-              <button type='submit' className='searchButton' onClick={this.handleSearch}>
-              <i className='search-icon'></i>
+              <button type='submit' className='searchButton' onClick={this.handleSearch}>Search
               </button>
             <form aria-label="select filter value">
               <select name='filterDropdown' data-testid='select-one' onChange={this.handleFormSelection}>
