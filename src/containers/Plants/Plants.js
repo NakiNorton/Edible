@@ -12,6 +12,9 @@ class Plants extends Component {
     super()
     this.state = {
       error: '',
+      searchValue: '',
+      searchResults: [],
+      filteredResults: [],
     } 
   }
 
@@ -36,34 +39,100 @@ class Plants extends Component {
     }
   }
 
-  render() {
+  searchPlants = (input) => {
     const { plants } = this.props;
+    const lowerCaseInput = input.toLowerCase()
+    const titleCaseInput = input.charAt(0).toUpperCase() + input.slice(1)
+    const plantKeys = Object.keys(plants)
+    const searchResults = plantKeys.filter(key => 
+      plants[key].common_name.includes(lowerCaseInput || titleCaseInput) ||
+      plants[key].scientific_name.includes(lowerCaseInput || titleCaseInput))
+    // returning keys ///// how do I get the full objects?
+    console.log('results', searchResults)
+    this.setState({ searchresults: []})
+  }
+
+  handleSearch = (e) => {
+    e.preventDefault()
+    console.log(e.target.input)
+    this.searchPlants(this.state.searchValue)
+    this.setState({ searchValue: '' })
+  }
+
+  handleInputChange = (e) => {
+    this.setState({ searchValue: e.target.value })
+  }
+
+  createPlantLists = () => {
+    const { plants } = this.props;
+    console.log(plants)
     let plantInfo = Object.keys(plants).map((key, i) => {
-      console.log(plants[key].common_name)
+      console.log(plants[key].list)
       return <PlantCard
         key={i}
         id={plants[key].id}
         plantName={plants[key].common_name}
         image={plants[key].image_url}
         sciName={plants[key].scientific_name}
-        />
+      />
     })
+   
+    return plantInfo
+  }
+
+  handleFormSelection = (e) => {
+    e.preventDefault()
+    console.log(e.target.value)
+    this.setState({ filteredResults: [e.target.value] })
+  }
+
+  displayFilteredResults = (e) => {
+    e.preventDefault()
+    console.log('hello')
+  }
+
+  render() {
+    // const { plants } = this.props;
+    // let plantInfo = Object.keys(plants).map((key, i) => {
+    //   return <PlantCard
+    //     key={i}
+    //     id={plants[key].id}
+    //     plantName={plants[key].common_name}
+    //     image={plants[key].image_url}
+    //     sciName={plants[key].scientific_name}
+    //     />
+    // })
 
     return (
       <section className='Plants'>
         <h1 className='page-heading'>Browse Plants</h1>
-        <>
         <div className='search-container'>
           <div className='search'>
-            <input type='text' className='searchInput' placeholder='What are you looking for?' />
-              <button type='submit' className='searchButton'>
+            <input type='text' 
+              className='searchInput' 
+              placeholder='What are you looking for?' 
+              onChange={this.handleInputChange}
+              value={this.state.search}
+              />
+              <button type='submit' className='searchButton' onClick={this.handleSearch}>
               <i className='search-icon'></i>
               </button>
+            <form aria-label="select filter value">
+              <select name='filterDropdown' data-testid='select-one' onChange={this.handleFormSelection}>
+                <option value=''>--Filter by...--</option>
+                <option value='seeds' data-testid='seeds'>Seeds</option>
+                <option value='soots'>Roots</option>
+                <option value='leaves'>Leaves</option>
+                <option value='flowers'>Flowers</option>
+                <option value='fruits'>Fruits</option>
+              </select>
+              <input type='submit' value='Submit' onClick={this.displayFilteredResults} />
+            </form>
            </div>
         </div>
-        </>
         <section className='plant-container'>
-          {plantInfo}
+        
+        {this.createPlantLists()}
         </section>
       </section>
     )
