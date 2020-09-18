@@ -6,7 +6,6 @@ import { connect } from 'react-redux'
 import { setEdiblePlants } from '../../actions';
 import './Plants.scss';
 
-
 class Plants extends Component {
   constructor() {
     super()
@@ -14,6 +13,7 @@ class Plants extends Component {
       error: '',
       searchValue: '',
       searchResults: [],
+      filterInput: '',
       filteredResults: [],
     } 
   }
@@ -21,6 +21,7 @@ class Plants extends Component {
   async componentDidMount() {
     const { setEdiblePlants } = this.props;
     try {
+      // how to refactor? Loads really slow
       const leavesData = await fetchEdiblePlants('leaves')
       const rootsData = await fetchEdiblePlants('roots')
       const flowersData = await fetchEdiblePlants('flowers')
@@ -43,13 +44,12 @@ class Plants extends Component {
     const { plants } = this.props;
     const lowerCaseInput = input.toLowerCase()
     const titleCaseInput = input.charAt(0).toUpperCase() + input.slice(1)
-    const plantKeys = Object.keys(plants)
-    const searchResults = plantKeys.filter(key => 
-      plants[key].common_name.includes(lowerCaseInput || titleCaseInput) ||
-      plants[key].scientific_name.includes(lowerCaseInput || titleCaseInput))
-    // returning keys ///// how do I get the full objects?
+    
+    const searchResults = plants.filter(plant => 
+      plant.common_name.includes(lowerCaseInput || titleCaseInput) ||
+      plant.scientific_name.includes(lowerCaseInput || titleCaseInput))
     console.log('results', searchResults)
-    this.setState({ searchresults: []})
+    this.setState({ searchResults: searchResults })
   }
 
   handleSearch = (e) => {
@@ -63,46 +63,45 @@ class Plants extends Component {
     this.setState({ searchValue: e.target.value })
   }
 
-  createPlantLists = () => {
-    const { plants } = this.props;
-    console.log(plants)
-    let plantInfo = Object.keys(plants).map((key, i) => {
-      console.log(plants[key].list)
+  displayPlants = () => {
+    // need to refactor and clear fields after search/filter
+    let dataToDisplay;
+    if (this.state.searchResults.length) { 
+      dataToDisplay = this.state.searchResults
+    } else if (this.state.filteredResults.length) {
+      dataToDisplay = this.state.filteredResults
+    } else {
+      dataToDisplay = this.props.plants
+    }
+    const plantInfo = dataToDisplay.map((plant, i) => {
       return <PlantCard
         key={i}
-        id={plants[key].id}
-        plantName={plants[key].common_name}
-        image={plants[key].image_url}
-        sciName={plants[key].scientific_name}
+        id={plant.id}
+        plantName={plant.common_name}
+        image={plant.image_url}
+        sciName={plant.scientific_name}
       />
     })
-   
     return plantInfo
   }
 
+  // FILTER LOGIC
   handleFormSelection = (e) => {
     e.preventDefault()
-    console.log(e.target.value)
-    this.setState({ filteredResults: [e.target.value] })
+    this.setState({ filterInput: e.target.value })
   }
 
   displayFilteredResults = (e) => {
     e.preventDefault()
-    console.log('hello')
+    const { filterInput } = this.state
+    const { plants } = this.props
+    if (filterInput) {
+    const filteredPlants = plants.filter(plant => plant.list === filterInput)
+    this.setState({ filteredResults: filteredPlants })
+    }
   }
 
   render() {
-    // const { plants } = this.props;
-    // let plantInfo = Object.keys(plants).map((key, i) => {
-    //   return <PlantCard
-    //     key={i}
-    //     id={plants[key].id}
-    //     plantName={plants[key].common_name}
-    //     image={plants[key].image_url}
-    //     sciName={plants[key].scientific_name}
-    //     />
-    // })
-
     return (
       <section className='Plants'>
         <h1 className='page-heading'>Browse Plants</h1>
@@ -110,7 +109,7 @@ class Plants extends Component {
           <div className='search'>
             <input type='text' 
               className='searchInput' 
-              placeholder='What are you looking for?' 
+              placeholder='Search by plant name..' 
               onChange={this.handleInputChange}
               value={this.state.search}
               />
@@ -120,8 +119,9 @@ class Plants extends Component {
             <form aria-label="select filter value">
               <select name='filterDropdown' data-testid='select-one' onChange={this.handleFormSelection}>
                 <option value=''>--Filter by...--</option>
-                <option value='seeds' data-testid='seeds'>Seeds</option>
-                <option value='soots'>Roots</option>
+                <option value={null}>View All</option>
+                <option value='seeds' data-testid='seeds'>Seeds</option>  
+                <option value='roots'>Roots</option>
                 <option value='leaves'>Leaves</option>
                 <option value='flowers'>Flowers</option>
                 <option value='fruits'>Fruits</option>
@@ -131,8 +131,7 @@ class Plants extends Component {
            </div>
         </div>
         <section className='plant-container'>
-        
-        {this.createPlantLists()}
+        {this.displayPlants()}
         </section>
       </section>
     )
