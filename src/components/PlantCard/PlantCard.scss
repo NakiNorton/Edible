@@ -15,6 +15,7 @@
 
 
 .plant-details {
-  @include textFont($mintGreen, 24px);
+  @include textFont($mintGreen, 20px);
   text-align: left;
+  max-width: 300px;
 }
