@@ -1,16 +1,12 @@
-export const plants = (state = {}, action) => {
+export const plants = (state = [], action) => {
   switch (action.type) {
-    case 'SET_EDIBLE_ROOTS':
-    const newState = action.plants.reduce((plantsObj, plant) => {
-       plantsObj[plant.id] = plant
-       return plantsObj
-      }, {})
-        return newState
+    case 'SET_EDIBLE_PLANTS':
+      const newState = action.plants
+      return newState
     default:
       return state
   }
 }
-
 
 
 
