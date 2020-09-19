@@ -4,6 +4,11 @@ import { addPlant, removePlant } from '../../actions';
 import './PlantCard.scss';
 
 const PlantCard = ({ id, plantName, image, sciName, list, isSaved, addPlant, removePlant }) => {
+
+  const handleClick = () =>  {
+  !isSaved ? addPlant(id) : removePlant(id)
+  }
+
   return (
     <section className='PlantCard'>
         <img className='Book-card-image' alt={plantName} src={image} />
@@ -11,7 +16,7 @@ const PlantCard = ({ id, plantName, image, sciName, list, isSaved, addPlant, rem
           <p>Common name: {plantName}</p>
           <p>Scientific name: {sciName}</p> 
           <p>What's edible? The {list}</p> 
-          <button className='save-plant'>Save</button>
+          <button className='save-plant-btn' onClick={handleClick}>{!isSaved ? 'Save' : 'Remove'}</button>
         </article>
     </section>
   )
