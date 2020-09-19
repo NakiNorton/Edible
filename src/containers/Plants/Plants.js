@@ -82,7 +82,7 @@ class Plants extends Component {
         image={plant.image_url}
         sciName={plant.scientific_name}
         list={plant.list}
-        isSaved={plant.saved}
+        isSaved={plant.plantSaved} // starts out false
       />
     })
     return plantInfo

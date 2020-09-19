@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import React from 'react';
 import { connect } from 'react-redux'
 import { setEdiblePlants } from '../../actions';
 import PlantCard from '../PlantCard/PlantCard'
@@ -16,6 +15,7 @@ const SavedPlants = ({ plants }) => {
       image={savedPlant.image_url}
       sciName={savedPlant.scientific_name}
       list={savedPlant.list}
+      isSaved={savedPlant.plantSaved}
     />
   })
   
