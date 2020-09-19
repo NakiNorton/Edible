@@ -15,34 +15,47 @@ class Plants extends Component {
     } 
   }
 
-  searchPlants = (input) => {
+  handleSearchInputChange = (e) => {
+    e.preventDefault()
+    this.setState({ searchValue: e.target.value })
+  }
+
+  searchPlants = (e) => {
+    e.preventDefault()
+    const { searchValue } = this.state;
     const { plants } = this.props;
-    const upperCaseInput = input.toUpperCase()
+    const upperCaseInput = searchValue.toUpperCase()
     const searchResults = plants.filter(plant =>     
       plant.common_name.includes(upperCaseInput) ||
       plant.scientific_name.toUpperCase()
       .includes(upperCaseInput))
     this.setState({ searchResults: searchResults })
+    // this.setState({ searchValue: ''}) 
   }
 
-  handleSearch = (e) => {
+  handleFilterFormSelection = (e) => {
     e.preventDefault()
-    console.log(e.target.input)
-    this.searchPlants(this.state.searchValue)
+    this.setState({ filterInput: e.target.value })
   }
 
-  handleInputChange = (e) => {
+  filterPlants= (e) => {
     e.preventDefault()
-    this.setState({ searchValue: e.target.value })
+    const { filterInput } = this.state
+    const { plants } = this.props
+    if (filterInput) {
+    const filteredPlants = plants.filter(plant => plant.list === filterInput)
+    this.setState({ searchResults: [] })
+    this.setState({ filteredResults: filteredPlants })
+    }
   }
 
   displayPlants = () => {
     const { filteredResults, searchResults } = this.state
     const { plants } = this.props
     let plantList;
-    if(searchResults.length > 0) {
+    if (searchResults.length > 0) {
       plantList = searchResults
-    } else if(filteredResults.length > 0) {
+    } else if (filteredResults.length > 0) {
       plantList = filteredResults
     } else {
       plantList = plants;
@@ -55,27 +68,10 @@ class Plants extends Component {
         image={plant.image_url}
         sciName={plant.scientific_name}
         list={plant.list}
-        isSaved={plant.plantSaved} 
+        isSaved={plant.plantSaved}
       />
     })
     return plantsToDisplay
-  }
-
-  handleFormSelection = (e) => {
-    e.preventDefault()
-    this.setState({ filterInput: e.target.value })
-  }
-
-  displayFilteredResults = (e) => {
-    e.preventDefault()
-    const { filterInput } = this.state
-    const { plants } = this.props
-    if (filterInput) {
-    const filteredPlants = plants.filter(plant => plant.list === filterInput)
-    this.setState({ searchResults: [] })
-    this.setState({ searchValue: '' })
-    this.setState({ filteredResults: filteredPlants })
-    }
   }
 
   render() {    
@@ -92,13 +88,13 @@ class Plants extends Component {
             <input type='text' 
               className='searchInput' 
               placeholder='Search by plant name..' 
-              onChange={this.handleInputChange}
+              onChange={this.handleSearchInputChange}
               value={this.state.search}
               />
-              <button type='submit' className='searchButton' onClick={this.handleSearch}>Search
+              <button type='submit' className='searchButton' onClick={this.searchPlants}>Search
               </button>
             <form aria-label="select filter value">
-              <select name='filterDropdown' data-testid='select-one' onChange={this.handleFormSelection}>
+              <select name='filterDropdown' data-testid='select-one' onChange={this.handleFilterFormSelection}>
                 <option value=''>--Filter by...--</option>
                 <option value={null}>View All</option>
                 <option value='seeds' data-testid='seeds'>Seeds</option>  
@@ -107,7 +103,7 @@ class Plants extends Component {
                 <option value='flowers'>Flowers</option>
                 <option value='fruits'>Fruits</option>
               </select>
-              <input type='submit' value='Submit' onClick={this.displayFilteredResults} />
+              <input type='submit' value='Submit' onClick={this.filterPlants} />
             </form>
            </div>
         </div>
