@@ -78,11 +78,6 @@ class Plants extends Component {
     return (
       <section className='Plants'>
         <h1 className='page-heading'>Browse Plants</h1>
-        <section>
-          {this.props.plants.length === 0 &&
-            <h3 className='no-plants-msg'>Sorry, there was an error fetching the data. </h3>
-          }
-        </section>
         <div className='search-container'>
           <div className='search'>
             <input type='text' 
