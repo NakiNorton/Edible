@@ -4,7 +4,11 @@
   text-align: center;
   min-height: 40em;
   @include background();
-  
+}
+
+.page-loading {
+  margin-top: 1.5em;
+  @include headerFont($orange, 4em);
 }
 
 @media (prefers-reduced-motion: no-preference) {

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// import Spinner from 'react-bootstrap/Spinner'
 import { Route, Switch } from 'react-router-dom';
 import { fetchEdiblePlants } from '../../apiCalls'
 import { setEdiblePlants } from '../../actions';
@@ -9,11 +10,11 @@ import './App.scss';
 import { connect } from 'react-redux';
 
 class App extends Component {
+  state = { isLoading: true }
 
   async componentDidMount() {
     const { setEdiblePlants } = this.props;
     try {
-      // how to refactor? Loads really slow
       const leavesData = await fetchEdiblePlants('leaves')
       const rootsData = await fetchEdiblePlants('roots')
       const flowersData = await fetchEdiblePlants('flowers')
@@ -26,8 +27,9 @@ class App extends Component {
         seedsData
       )
       setEdiblePlants(newDataSet)
+      this.setState({ isLoading: false })
     }
-    catch (error) {
+    catch(error) {
       console.warn(error)
     }
   }
@@ -37,14 +39,19 @@ class App extends Component {
     return (
       <main className="App">
         <Header />
-        <Switch>
+        {this.state.isLoading &&
+        <h1 className='page-loading'>PAGE LOADING...</h1>
+        }
+        {!this.state.isLoading &&
+        <>
         <Route exact path='/' render={() =>  
-          <Plants />
+          <Plants isloading={this.state.isLoading}/>
         } />
         <Route exact path='/saved-plants' render={() =>
           <SavedPlants />
         } />
-        </Switch>
+        </>
+        }
       </main>
     )
   }
