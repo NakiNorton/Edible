@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import { Route, Switch } from 'react-router-dom';
-import PlantCard from '../../components/PlantCard/PlantCard'
+import PlantCard from '../PlantCard/PlantCard'
 // import { fetchEdiblePlants } from '../../apiCalls'
 import { connect } from 'react-redux'
 // import { setEdiblePlants } from '../../actions';
@@ -82,6 +82,7 @@ class Plants extends Component {
         image={plant.image_url}
         sciName={plant.scientific_name}
         list={plant.list}
+        isSaved={plant.saved}
       />
     })
     return plantInfo

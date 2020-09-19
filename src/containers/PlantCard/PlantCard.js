@@ -1,9 +1,9 @@
 import React from 'react';
-// import { connect } from 'react-redux'
-// import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux'
+import { addPlant, removePlant } from '../../actions';
 import './PlantCard.scss';
 
-const PlantCard = ({ id, plantName, image, sciName, list }) => {
+const PlantCard = ({ id, plantName, image, sciName, list, isSaved, addPlant, removePlant }) => {
   return (
     <section className='PlantCard'>
         <img className='Book-card-image' alt={plantName} src={image} />
@@ -17,4 +17,9 @@ const PlantCard = ({ id, plantName, image, sciName, list }) => {
   )
 }
 
-export default PlantCard
+export const mapDispatchToProps = {
+  addPlant,
+  removePlant
+}
+
+export default connect(null, mapDispatchToProps)(PlantCard)
