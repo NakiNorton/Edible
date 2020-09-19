@@ -1,17 +1,18 @@
 
 export const cleanData = (plants, list) => {
-  let reducedData = plants.map(plant => {
-   return {  
-      common_name: plant.common_name || null,
-      scientific_name: plant.scientific_name || null,
-      id: plant.id + Date.now() || Date.now(),
-      image_url: plant.image_url || null,
+  let filteredData = plants.filter(plant =>
+    !Object.values(plant).includes(null)
+  )
+  return filteredData.map(plant => {
+    let commonName = plant.common_name.toUpperCase()
+    let sciName = plant.scientific_name.charAt(0).toUpperCase() + plant.scientific_name.slice(1).toLowerCase()
+    return {  
+      common_name: commonName,
+      scientific_name: sciName,
+      id: plant.id + Date.now(),
+      image_url: plant.image_url,
       list: list,
       plantSaved: false,
     }
   })
-  let filteredData = reducedData.filter(plant => 
-    !Object.values(plant).includes(null)
-  )
-  return filteredData;
 }
