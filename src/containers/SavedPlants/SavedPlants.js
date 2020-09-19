@@ -6,14 +6,16 @@ import PlantCard from '../PlantCard/PlantCard'
 import './SavedPlants.scss';
 
 const SavedPlants = ({ plants }) => {
-    const savedPlants = plants.map((plant, i) => {
+  const savedPlants = plants
+  .filter(plant => plant.plantSaved === true)
+  .map((savedPlant, i) => {
     return <PlantCard
       key={i}
-      id={plant.id}
-      plantName={plant.common_name}
-      image={plant.image_url}
-      sciName={plant.scientific_name}
-      list={plant.list}
+      id={savedPlant.id}
+      plantName={savedPlant.common_name}
+      image={savedPlant.image_url}
+      sciName={savedPlant.scientific_name}
+      list={savedPlant.list}
     />
   })
   
@@ -35,7 +37,6 @@ const SavedPlants = ({ plants }) => {
 export const mapStateToProps = ({ plants }) => ({
   plants
 })
-
 
 export const mapDispatchToProps = {
   setEdiblePlants
