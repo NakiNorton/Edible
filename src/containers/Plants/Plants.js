@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+// import { Route, Switch } from 'react-router-dom';
 import PlantCard from '../../components/PlantCard/PlantCard'
-import { fetchEdiblePlants } from '../../apiCalls'
+// import { fetchEdiblePlants } from '../../apiCalls'
 import { connect } from 'react-redux'
-import { setEdiblePlants } from '../../actions';
+// import { setEdiblePlants } from '../../actions';
+// import SavedPlants from '../../containers/SavedPlants/SavedPlants'
 import './Plants.scss';
 
 class Plants extends Component {
@@ -18,27 +19,27 @@ class Plants extends Component {
     } 
   }
 
-  async componentDidMount() {
-    const { setEdiblePlants } = this.props;
-    try {
-      // how to refactor? Loads really slow
-      const leavesData = await fetchEdiblePlants('leaves')
-      const rootsData = await fetchEdiblePlants('roots')
-      const flowersData = await fetchEdiblePlants('flowers')
-      const fruitsData = await fetchEdiblePlants('fruits')
-      const seedsData = await fetchEdiblePlants('seeds')
-      const newDataSet = leavesData.concat(
-        rootsData, 
-        flowersData, 
-        fruitsData,
-        seedsData
-        )
-      setEdiblePlants(newDataSet)
-    }
-    catch(error) {
-      console.warn(error)
-    }
-  }
+  // async componentDidMount() {
+  //   const { setEdiblePlants } = this.props;
+  //   try {
+  //     // how to refactor? Loads really slow
+  //     const leavesData = await fetchEdiblePlants('leaves')
+  //     const rootsData = await fetchEdiblePlants('roots')
+  //     const flowersData = await fetchEdiblePlants('flowers')
+  //     const fruitsData = await fetchEdiblePlants('fruits')
+  //     const seedsData = await fetchEdiblePlants('seeds')
+  //     const newDataSet = leavesData.concat(
+  //       rootsData, 
+  //       flowersData, 
+  //       fruitsData,
+  //       seedsData
+  //       )
+  //     setEdiblePlants(newDataSet)
+  //   }
+  //   catch(error) {
+  //     console.warn(error)
+  //   }
+  // }
 
   searchPlants = (input) => {
     const { plants } = this.props;
@@ -106,6 +107,11 @@ class Plants extends Component {
     return (
       <section className='Plants'>
         <h1 className='page-heading'>Browse Plants</h1>
+        <section>
+          {this.props.plants.length === 0 &&
+            <h3 className='no-plants-msg'>Sorry, there was an error fetching the data. </h3>
+          }
+        </section>
         <div className='search-container'>
           <div className='search'>
             <input type='text' 
@@ -142,8 +148,8 @@ export const mapStateToProps = ({ plants }) => ({
  plants
 })
 
-export const mapDispatchToProps = {
-    setEdiblePlants
-  }
+// export const mapDispatchToProps = {
+//     setEdiblePlants
+//   }
 
-export default connect(mapStateToProps, mapDispatchToProps) (Plants)
+export default connect(mapStateToProps) (Plants)
