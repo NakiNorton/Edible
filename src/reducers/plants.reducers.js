@@ -4,19 +4,21 @@ export const plants = (state = [], action) => {
       const newState = action.plants
       return newState
     case 'ADD_PLANT':
-      const modifiedState = state
-      modifiedState.filter(plant => {
+      const updatedSavedValue = state
+      updatedSavedValue.filter(plant => {
         if(plant.id === action.plants) {
          return plant.plantSaved = true;
         } 
       })
-      return modifiedState
-
-
-
+      return [...state, updatedSavedValue]
     case 'REMOVE_PLANT':
-      const removePlant = action.plants
-      return removePlant
+      const revertedSavedValue = state
+      revertedSavedValue.filter(plant => {
+        if (plant.id === action.plants) {
+          return plant.plantSaved = false;
+        }
+      })
+      return [ ...state, revertedSavedValue ]
     default:
       return state
   }
