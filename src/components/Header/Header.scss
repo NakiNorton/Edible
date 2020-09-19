@@ -33,8 +33,7 @@ ul {
 .nav-link {
   padding-right: 2.5vh;
   text-decoration: none;
-  color: $orange;
-  font-size: 30px;
+  @include textFont($mintGreen, 30px);
   margin-top: 50em;
   // border-bottom: 3px solid $orange;
 }

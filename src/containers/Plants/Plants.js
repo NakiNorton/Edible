@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
-import PlantCard from '../../components/PlantCard/PlantCard'
-import { fetchEdiblePlants } from '../../apiCalls'
+import PlantCard from '../PlantCard/PlantCard'
 import { connect } from 'react-redux'
-import { setEdiblePlants } from '../../actions';
 import './Plants.scss';
 
 class Plants extends Component {
@@ -18,62 +15,52 @@ class Plants extends Component {
     } 
   }
 
-  async componentDidMount() {
-    const { setEdiblePlants } = this.props;
-    try {
-      // how to refactor? Loads really slow
-      const leavesData = await fetchEdiblePlants('leaves')
-      const rootsData = await fetchEdiblePlants('roots')
-      const flowersData = await fetchEdiblePlants('flowers')
-      const fruitsData = await fetchEdiblePlants('fruits')
-      const seedsData = await fetchEdiblePlants('seeds')
-      const newDataSet = leavesData.concat(
-        rootsData, 
-        flowersData, 
-        fruitsData,
-        seedsData
-        )
-      setEdiblePlants(newDataSet)
-    }
-    catch(error) {
-      console.warn(error)
-    }
-  }
-
-  searchPlants = (input) => {
-    const { plants } = this.props;
-    const lowerCaseInput = input.toLowerCase()
-    const titleCaseInput = input.charAt(0).toUpperCase() + input.slice(1)
-    
-    const searchResults = plants.filter(plant => 
-      plant.common_name.includes(lowerCaseInput || titleCaseInput) ||
-      plant.scientific_name.includes(lowerCaseInput || titleCaseInput))
-    console.log('results', searchResults)
-    this.setState({ searchResults: searchResults })
-  }
-
-  handleSearch = (e) => {
+  handleSearchInputChange = (e) => {
     e.preventDefault()
-    console.log(e.target.input)
-    this.searchPlants(this.state.searchValue)
- 
-  }
-
-  handleInputChange = (e) => {
     this.setState({ searchValue: e.target.value })
   }
 
-  displayPlants = () => {
-    // need to refactor and clear fields after search/filter
-    let dataToDisplay;
-    if (this.state.searchResults.length) { 
-      dataToDisplay = this.state.searchResults
-    } else if (this.state.filteredResults.length) {
-      dataToDisplay = this.state.filteredResults
-    } else {
-      dataToDisplay = this.props.plants
+  searchPlants = (e) => {
+    e.preventDefault()
+    const { searchValue } = this.state;
+    const { plants } = this.props;
+    const upperCaseInput = searchValue.toUpperCase()
+    const searchResults = plants.filter(plant =>     
+      plant.common_name.includes(upperCaseInput) ||
+      plant.scientific_name.toUpperCase()
+      .includes(upperCaseInput))
+    this.setState({ searchResults: searchResults })
+    // this.setState({ searchValue: ''}) 
+  }
+
+  handleFilterFormSelection = (e) => {
+    e.preventDefault()
+    this.setState({ filterInput: e.target.value })
+  }
+
+  filterPlants= (e) => {
+    e.preventDefault()
+    const { filterInput } = this.state
+    const { plants } = this.props
+    if (filterInput) {
+    const filteredPlants = plants.filter(plant => plant.list === filterInput)
+    this.setState({ searchResults: [] })
+    this.setState({ filteredResults: filteredPlants })
     }
-    const plantInfo = dataToDisplay.map((plant, i) => {
+  }
+
+  displayPlants = () => {
+    const { filteredResults, searchResults } = this.state
+    const { plants } = this.props
+    let plantList;
+    if (searchResults.length > 0) {
+      plantList = searchResults
+    } else if (filteredResults.length > 0) {
+      plantList = filteredResults
+    } else {
+      plantList = plants;
+    }
+    const plantsToDisplay = plantList.map((plant, i) => {
       return <PlantCard
         key={i}
         id={plant.id}
@@ -81,28 +68,13 @@ class Plants extends Component {
         image={plant.image_url}
         sciName={plant.scientific_name}
         list={plant.list}
+        isSaved={plant.plantSaved}
       />
     })
-    return plantInfo
+    return plantsToDisplay
   }
 
-  // FILTER LOGIC
-  handleFormSelection = (e) => {
-    e.preventDefault()
-    this.setState({ filterInput: e.target.value })
-  }
-
-  displayFilteredResults = (e) => {
-    e.preventDefault()
-    const { filterInput } = this.state
-    const { plants } = this.props
-    if (filterInput) {
-    const filteredPlants = plants.filter(plant => plant.list === filterInput)
-    this.setState({ filteredResults: filteredPlants })
-    }
-  }
-
-  render() {
+  render() {    
     return (
       <section className='Plants'>
         <h1 className='page-heading'>Browse Plants</h1>
@@ -111,13 +83,13 @@ class Plants extends Component {
             <input type='text' 
               className='searchInput' 
               placeholder='Search by plant name..' 
-              onChange={this.handleInputChange}
+              onChange={this.handleSearchInputChange}
               value={this.state.search}
               />
-              <button type='submit' className='searchButton' onClick={this.handleSearch}>Search
+              <button type='submit' className='searchButton' onClick={this.searchPlants}>Search
               </button>
             <form aria-label="select filter value">
-              <select name='filterDropdown' data-testid='select-one' onChange={this.handleFormSelection}>
+              <select name='filterDropdown' data-testid='select-one' onChange={this.handleFilterFormSelection}>
                 <option value=''>--Filter by...--</option>
                 <option value={null}>View All</option>
                 <option value='seeds' data-testid='seeds'>Seeds</option>  
@@ -126,12 +98,12 @@ class Plants extends Component {
                 <option value='flowers'>Flowers</option>
                 <option value='fruits'>Fruits</option>
               </select>
-              <input type='submit' value='Submit' onClick={this.displayFilteredResults} />
+              <input type='submit' value='Submit' onClick={this.filterPlants} />
             </form>
            </div>
         </div>
         <section className='plant-container'>
-        {this.displayPlants()}
+          {this.displayPlants()}
         </section>
       </section>
     )
@@ -139,11 +111,7 @@ class Plants extends Component {
 }
 
 export const mapStateToProps = ({ plants }) => ({
- plants
+  plants
 })
 
-export const mapDispatchToProps = {
-    setEdiblePlants
-  }
-
-export default connect(mapStateToProps, mapDispatchToProps) (Plants)
+export default connect(mapStateToProps) (Plants)
