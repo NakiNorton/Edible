@@ -12,7 +12,7 @@ const PlantCard = ({ id, plantName, image, sciName, list, isSaved, addPlant, rem
   return (
     <section className='PlantCard'>
       <h2 className='common-name'>{plantName}</h2>
-      <img className='Book-card-image' alt={plantName} src={image} />
+      <img className='plant-card-image' alt={plantName} src={image} />
       <article id={id} className='plant-details'>
         <p>Scientific name: {sciName}</p> 
         <p>What's edible? The {list}</p> 

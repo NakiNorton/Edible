@@ -5,17 +5,49 @@
   max-width: 440px;
   border-radius: .5em; 
   background-size: cover; 
-  border: 8px solid white;  
-  box-shadow: inset 0 0 15px white;
+  border: 8px solid $white;  
+  box-shadow: 0px 5px 10px 10px lightgray;
+}
+
+.plant-card-image {
+  margin: 1.2em;
 }
 
 .PlantCard {
   margin-bottom: 6em;
 }
 
-
 .plant-details {
   @include textFont($mintGreen, 20px);
   text-align: left;
   max-width: 300px;
 }
+
+.save-plant-btn {
+  width: 84px;
+  height: 30px;
+  padding: 0px;
+  margin: auto;
+  border: 3px solid $mintGreen; 
+  background: $mintGreen; 
+  text-align: center;
+  @include textFont(#fff, 18px);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.save-plant-btn:hover {
+  background-color: teal;
+  color: white;
+  border: solid 1px  white;
+  box-shadow: 2px 2px 15px  whitesmoke;
+}
+
+.common-name {
+  @include headerFont($mintGreen, 2.8vh);
+}
+
+.plant-card-image:hover {
+  transform: scale(1.1);
+}
+
