@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { fetchEdiblePlants } from '../../apiCalls'
+import { fetchEdiblePlants } from '../../helpers/apiCalls'
 import { setEdiblePlants } from '../../actions';
 import Header from '../Header/Header'
 import Plants from '../../containers/Plants/Plants'
