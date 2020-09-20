@@ -42,7 +42,7 @@ class App extends Component {
         <Header />
         {this.state.isLoading &&
           <>
-          <h1 className='page-loading'>PAGE LOADING...</h1>
+          <h1 className='page-loading'>Page loading...</h1>
           <img className='plant-img' alt='plant' src={plantImg} />
           </>
         }
