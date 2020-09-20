@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PlantCard from '../PlantCard/PlantCard'
 import { connect } from 'react-redux'
 import './Plants.scss';
+import Facts from '../../components/Facts/Facts'
 
 class Plants extends Component {
   constructor() {
@@ -77,20 +78,23 @@ class Plants extends Component {
   render() {    
     return (
       <section className='Plants'>
+        <>
+        <Facts />
+        </>
         <h1 className='page-heading'>Browse Plants</h1>
         <div className='search-container'>
           <div className='search'>
             <input type='text' 
               className='searchInput' 
-              placeholder='Search by plant name..' 
+              placeholder='Search by plant name...' 
               onChange={this.handleSearchInputChange}
               value={this.state.search}
               />
-              <button type='submit' className='searchButton' onClick={this.searchPlants}>Search
-              </button>
-            <form aria-label="select filter value">
+              <button type='submit' className='searchButton' onClick={this.searchPlants}>Search</button>
+              </div>
+            <form aria-label='select filter value'>
               <select name='filterDropdown' data-testid='select-one' onChange={this.handleFilterFormSelection}>
-                <option value=''>--Filter by...--</option>
+                <option value=''>--Filter by--</option>
                 <option value={null}>View All</option>
                 <option value='seeds' data-testid='seeds'>Seeds</option>  
                 <option value='roots'>Roots</option>
@@ -98,10 +102,9 @@ class Plants extends Component {
                 <option value='flowers'>Flowers</option>
                 <option value='fruits'>Fruits</option>
               </select>
-              <input type='submit' value='Submit' onClick={this.filterPlants} />
+              <input type='submit' value='Submit' className='filterButton' onClick={this.filterPlants} />
             </form>
            </div>
-        </div>
         <section className='plant-container'>
           {this.displayPlants()}
         </section>

@@ -1,5 +1,12 @@
 @import '../../styles/variables.scss';
 
+.Plants {
+ min-height: 80em;
+}
+
+.page-heading {
+  @include headerFont($orange, 68px);
+}
 
 .plant-container {
   padding: 25px;
@@ -12,6 +19,15 @@
   margin-right: 5em;
 }
 
+.search-container {
+  width: 30%;
+  margin-top: 12em;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .search {
   width: 100%;
   position: relative;
@@ -21,13 +37,14 @@
 .searchInput {
   width: 100%;
   border: 3px solid $mintGreen; 
-  border-right: none;
+  margin: auto;
   padding: 5px;
   height: 22px;
   font-size: 16px;
-  border-radius: 5px 0 0 5px;
+  border-radius: 5px;
   outline: none;
   color: #9DBFAF;
+  margin-right: 10px;
 }
 
 .searchInput:focus {
@@ -35,21 +52,52 @@
 }
 
 .searchButton {
-  width: 40px;
-  height: 36px;
+  width: 80px;
+  height: 30px;
+  margin: auto;
   border: 1px solid $mintGreen; 
   background: $mintGreen; 
   text-align: center;
-  color: #fff;
-  border-radius: 0 5px 5px 0;
+  @include textFont(#fff, 18px);
+  border-radius: 5px;
   cursor: pointer;
-  font-size: 20px;
 }
 
-.search-container {
-  width: 30%;
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+form {
+  margin-top: 1.2em;
 }
+
+select {
+  border: 3px solid $mintGreen; 
+  height: 36px;
+  font-size: 16px;
+  border-radius: 5px;
+  color: gray;
+  padding: 5px;
+  margin: auto;
+  margin-right: 10px;
+}
+
+.filterButton {
+  width: 80px;
+  height: 30px;
+  padding: 0px;
+  margin: auto;
+  border: 3px solid $mintGreen; 
+  background: $mintGreen; 
+  text-align: center;
+  @include textFont(#fff, 18px);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.searchButton:hover {
+  transform: scale(1.1);
+}
+
+.filterButton:hover {
+  transform: scale(1.1);
+}
+
+
+
