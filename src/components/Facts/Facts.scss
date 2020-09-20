@@ -1,0 +1,8 @@
+@import '../../styles/variables.scss';
+
+.Facts {
+  background-image: linear-gradient($mintGreen, $mintGreen, $mintGreen, $white);
+  @include textFont(white, 18px);
+  padding: 5px;
+  padding-bottom: 35px;
+}
