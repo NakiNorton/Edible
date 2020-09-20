@@ -24,7 +24,7 @@ const SavedPlants = ({ plants }) => {
       <h1 className='page-heading'>Your Saved Plants</h1>
       <section>
         {savedPlants.length === 0 &&
-          <h3 className='no-plants-msg'>You haven't saved any plants yet. </h3>
+          <h3 className='no-plants-msg'>You haven't saved any plants yet :( </h3>
         }
       </section>
       <section className='plant-container'>
