@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PlantCard from '../PlantCard/PlantCard'
 import { connect } from 'react-redux'
 import './Plants.scss';
-import Facts from '../../components/Facts/Facts'
 
 class Plants extends Component {
   constructor() {
@@ -78,9 +77,6 @@ class Plants extends Component {
   render() {    
     return (
       <section className='Plants'>
-        <>
-        <Facts />
-        </>
         <h1 className='page-heading'>Browse Plants</h1>
         <div className='search-container'>
           <div className='search'>
