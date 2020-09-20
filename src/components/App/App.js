@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-// import Spinner from 'react-bootstrap/Spinner'
-import { Route, Switch } from 'react-router-dom';
+import { Route } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { fetchEdiblePlants } from '../../apiCalls'
 import { setEdiblePlants } from '../../actions';
 import Header from '../Header/Header'
@@ -38,27 +38,31 @@ class App extends Component {
 
   render() {
     return (
-      <main className="App">
+      <main className='App'>
         <Header />
         {this.state.isLoading &&
-        <>
-        <h1 className='page-loading'>PAGE LOADING...</h1>
-        <img className='plant-img' alt='plant' src={plantImg} />
-        </>
+          <>
+          <h1 className='page-loading'>PAGE LOADING...</h1>
+          <img className='plant-img' alt='plant' src={plantImg} />
+          </>
         }
         {!this.state.isLoading &&
-        <>
-        <Route exact path='/' render={() =>  
-          <Plants />
-        } />
-        <Route exact path='/saved-plants' render={() =>
-          <SavedPlants />
-        } />
-        </>
+          <>
+          <Route exact path='/' render={() =>  
+            <Plants />
+          } />
+          <Route exact path='/saved-plants' render={() =>
+            <SavedPlants />
+          } />
+          </>
         }
       </main>
     )
   }
+}
+
+App.propTypes = {
+  plants: PropTypes.array
 }
 
 export const mapStateToProps = ({ plants }) => ({

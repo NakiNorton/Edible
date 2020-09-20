@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PlantCard from '../PlantCard/PlantCard'
+import Facts from '../../components/Facts/Facts'
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 import './Plants.scss';
 
@@ -10,7 +12,7 @@ class Plants extends Component {
       error: '',
       searchValue: '',
       searchResults: [],
-      filterInput: '',
+      filterValue: '',
       filteredResults: [],
     } 
   }
@@ -35,15 +37,15 @@ class Plants extends Component {
 
   handleFilterFormSelection = (e) => {
     e.preventDefault()
-    this.setState({ filterInput: e.target.value })
+    this.setState({ filterValue: e.target.value })
   }
 
   filterPlants= (e) => {
     e.preventDefault()
-    const { filterInput } = this.state
+    const { filterValue } = this.state
     const { plants } = this.props
-    if (filterInput) {
-    const filteredPlants = plants.filter(plant => plant.list === filterInput)
+    if (filterValue) {
+    const filteredPlants = plants.filter(plant => plant.list === filterValue)
     this.setState({ searchResults: [] })
     this.setState({ filteredResults: filteredPlants })
     }
@@ -77,6 +79,7 @@ class Plants extends Component {
   render() {    
     return (
       <section className='Plants'>
+        <Facts />
         <h1 className='page-heading'>Browse Plants</h1>
         <div className='search-container'>
           <div className='search'>
@@ -107,6 +110,10 @@ class Plants extends Component {
       </section>
     )
   }
+}
+
+Plants.propTypes = {
+  plants: PropTypes.array
 }
 
 export const mapStateToProps = ({ plants }) => ({

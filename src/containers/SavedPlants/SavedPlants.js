@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types';
 import { setEdiblePlants } from '../../actions';
 import PlantCard from '../PlantCard/PlantCard'
 import './SavedPlants.scss';
@@ -32,6 +33,10 @@ const SavedPlants = ({ plants }) => {
       </section>
     </section>
   )
+}
+
+SavedPlants.propTypes = {
+  plants: PropTypes.array
 }
 
 export const mapStateToProps = ({ plants }) => ({
