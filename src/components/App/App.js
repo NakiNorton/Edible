@@ -6,6 +6,7 @@ import { setEdiblePlants } from '../../actions';
 import Header from '../Header/Header'
 import Plants from '../../containers/Plants/Plants'
 import SavedPlants from '../../containers/SavedPlants/SavedPlants'
+import plantImg from './sprout.png'
 import './App.scss';
 import { connect } from 'react-redux';
 
@@ -40,12 +41,15 @@ class App extends Component {
       <main className="App">
         <Header />
         {this.state.isLoading &&
+        <>
         <h1 className='page-loading'>PAGE LOADING...</h1>
+        <img className='plant-img' alt='plant' src={plantImg} />
+        </>
         }
         {!this.state.isLoading &&
         <>
         <Route exact path='/' render={() =>  
-          <Plants isloading={this.state.isLoading}/>
+          <Plants />
         } />
         <Route exact path='/saved-plants' render={() =>
           <SavedPlants />

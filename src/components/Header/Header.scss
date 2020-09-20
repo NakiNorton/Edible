@@ -1,6 +1,8 @@
 @import '../../styles/variables.scss';
 
-
+.Header {
+  border-bottom: 4px solid white;
+}
 
 ul {
   display: grid;
@@ -10,32 +12,38 @@ ul {
   grid-gap: 10px;
   list-style: none;
   margin: 0px;
-  padding: 5vh;
-  align-items: center;
-  justify-items: center;
+  padding: 1vh;
+  align-items: baseline;
+  justify-items: left;
 }
 
 .app-header {
   @include headerFont($mintGreen, 12vh);
   grid-area: header;
   margin: 0px;
+  margin-left: 1em;
+  justify-self: left;
 }
 
 .home {
   grid-area: home;
-  // border-right: 2px solid $orange;
+  padding-left: 4em;
 }
 
 .saved {
   grid-area: saved;
+  justify-self: center;
 }
 
 .nav-link {
   padding-right: 2.5vh;
   text-decoration: none;
-  @include textFont($mintGreen, 30px);
+  @include headerFont($mintGreen, 3.8vh);
   margin-top: 50em;
-  // border-bottom: 3px solid $orange;
+}
+
+.nav-link:hover {
+  color: teal;
 }
 
 @media (max-width: 950px) {
@@ -49,3 +57,5 @@ ul {
   }
 
 }
+
+

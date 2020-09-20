@@ -1,0 +1,6 @@
+@import '../../styles/variables.scss';
+
+.no-plants-msg {
+  @include textFont($mintGreen, 34px);
+  margin-top: 2em;
+}

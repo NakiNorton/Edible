@@ -2,8 +2,10 @@
 
 .App {
   text-align: center;
-  min-height: 40em;
+  // min-height: 40em;
   @include background();
+  min-height: 100em;
+  width: 100%;
 }
 
 .page-loading {
@@ -11,9 +13,10 @@
   @include headerFont($orange, 4em);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.plant-img {
+  height: 20em;
+  width: auto;
 }
+
+
 
