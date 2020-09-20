@@ -49,7 +49,7 @@ class App extends Component {
         {!this.state.isLoading &&
         <>
         <Route exact path='/' render={() =>  
-          <Plants isloading={this.state.isLoading}/>
+          <Plants />
         } />
         <Route exact path='/saved-plants' render={() =>
           <SavedPlants />
