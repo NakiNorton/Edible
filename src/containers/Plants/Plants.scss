@@ -5,7 +5,7 @@
 }
 
 .page-heading {
-  @include headerFont($orange, 68px);
+  @include headerFont($orange, 62px);
 }
 
 .plant-container {
@@ -21,7 +21,7 @@
 
 .search-container {
   width: 30%;
-  margin-top: 12em;
+  margin-top: 18.5em;
   position: absolute;
   top: 40%;
   left: 50%;

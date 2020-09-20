@@ -21,6 +21,7 @@
   @include textFont($mintGreen, 20px);
   text-align: left;
   max-width: 300px;
+  padding-left: 14px;
 }
 
 .save-plant-btn {
@@ -44,7 +45,7 @@
 }
 
 .common-name {
-  @include headerFont($mintGreen, 2.8vh);
+  @include headerFont($mintGreen, 3vh);
 }
 
 .plant-card-image:hover {

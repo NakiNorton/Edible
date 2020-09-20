@@ -38,15 +38,12 @@ ul {
 .nav-link {
   padding-right: 2.5vh;
   text-decoration: none;
-  @include headerFont($mintGreen, 3vh);
+  @include headerFont($mintGreen, 3.8vh);
   margin-top: 50em;
 }
 
 .nav-link:hover {
-  transform: scale(1.1);
-  background: $white;
-   color: teal;
-  border: none;
+  color: teal;
 }
 
 @media (max-width: 950px) {
@@ -60,3 +57,5 @@ ul {
   }
 
 }
+
+
