@@ -55,3 +55,20 @@
 span {
   font-weight: 600;
 }
+
+@media (max-width: 950px) {
+  .PlantCard {
+    margin-bottom: 1em;
+    padding-bottom: 3em;
+    border-bottom: 5px solid white;
+  }
+}
+
+@media (max-width: 450px) {
+  .PlantCard img {
+  max-height: 320px; 
+  max-width: 260px;
+  border-radius: .5em; 
+  border: 6px solid $white;  
+  }
+}
