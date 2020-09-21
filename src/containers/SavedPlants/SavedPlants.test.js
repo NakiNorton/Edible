@@ -1,16 +1,16 @@
 import React from 'react'
 import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
+import thunk from 'redux-thunk'
 import '@testing-library/jest-dom'
 import { screen, render } from '@testing-library/react'
 import SavedPlants from './SavedPlants'
-import { MemoryRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
-const middlewares = [thunk];
-const mockStore = configureMockStore(middlewares);
+import { MemoryRouter } from 'react-router-dom'
+import { Provider } from 'react-redux'
+const middlewares = [thunk]
+const mockStore = configureMockStore(middlewares)
 
 describe('SavedPlants Container', () => {
-  let fetchedPlants;
+  let fetchedPlants
   beforeEach(() => {
     fetchedPlants = [
       {
@@ -41,6 +41,7 @@ describe('SavedPlants Container', () => {
   })
 
   it('should render the page heading', () => {
+
     const store = mockStore({
       plants: fetchedPlants
     })
@@ -55,10 +56,11 @@ describe('SavedPlants Container', () => {
 
     const pageHeading = screen.getByRole('heading', { name: 'Your Saved Plants' })
 
-    expect(pageHeading).toBeInTheDocument();
+    expect(pageHeading).toBeInTheDocument()
   })
 
   it('should only display saved plants', () => {
+
     const store = mockStore({
       plants: fetchedPlants
     })
@@ -91,6 +93,7 @@ describe('SavedPlants Container', () => {
 
 describe('No SavedPlants', () => {
   it('should display message if there are no saved plants', () => {
+    
     let fetchedPlants = [
       {
         id: 10978,

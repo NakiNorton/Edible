@@ -1,5 +1,5 @@
 import { cleanData } from './cleanData'
-const key = process.env.REACT_APP_API_KEY;
+const key = process.env.REACT_APP_API_KEY
 
 export async function fetchEdiblePlants(list) {
   const response = await fetch('https://fe-cors-proxy.herokuapp.com', {

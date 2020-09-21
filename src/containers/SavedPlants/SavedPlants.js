@@ -1,11 +1,12 @@
-import React from 'react';
+import React from 'react'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 import { setEdiblePlants } from '../../actions';
 import PlantCard from '../PlantCard/PlantCard'
-import './SavedPlants.scss';
+import './SavedPlants.scss'
 
 const SavedPlants = ({ plants }) => {
+  
   const savedPlants = plants
   .filter(plant => plant.plantSaved === true)
   .map((savedPlant, i) => {

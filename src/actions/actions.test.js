@@ -1,4 +1,4 @@
-import * as actions from '../actions';
+import * as actions from '../actions'
 
 describe('actions', () => {
   it('should have a type of SET_EDIBLE_PLANTS', () => {
@@ -25,9 +25,9 @@ describe('actions', () => {
       plants: plants 
     }
 
-    const result = actions.setEdiblePlants(plants);
-    expect(result).toEqual(expectedAction);
-  });
+    const result = actions.setEdiblePlants(plants)
+    expect(result).toEqual(expectedAction)
+  })
 
   it('should have a type of ADD_PLANT', () => {
     const plants = {
@@ -44,9 +44,9 @@ describe('actions', () => {
       plants: plants
     }
 
-    const result = actions.addPlant(plants);
-    expect(result).toEqual(expectedAction);
-  });
+    const result = actions.addPlant(plants)
+    expect(result).toEqual(expectedAction)
+  })
 
   it('should have a type of REMOVE_PLANT', () => {
     const plants = {
@@ -63,8 +63,7 @@ describe('actions', () => {
       plants: plants
     }
 
-    const result = actions.removePlant(plants);
-    expect(result).toEqual(expectedAction);
-  });
-
-});
+    const result = actions.removePlant(plants)
+    expect(result).toEqual(expectedAction)
+  })
+})

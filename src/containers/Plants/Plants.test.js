@@ -1,14 +1,14 @@
 import React from 'react'
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
+import configureMockStore from 'redux-mock-store'
+import thunk from 'redux-thunk'
 import '@testing-library/jest-dom'
 import { screen, render, fireEvent } from '@testing-library/react'
-import userEvent from '@testing-library/user-event';
+import userEvent from '@testing-library/user-event'
 import Plants from './Plants'
-import { MemoryRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
-const middlewares = [thunk];
-const mockStore = configureMockStore(middlewares);
+import { MemoryRouter } from 'react-router-dom'
+import { Provider } from 'react-redux'
+const middlewares = [thunk]
+const mockStore = configureMockStore(middlewares)
 
 describe('Plants Container', () => {
   let fetchedPlants;
@@ -41,6 +41,7 @@ describe('Plants Container', () => {
   })
 
   it('should render the page heading', () => {
+
     const store = mockStore({
       plants: fetchedPlants
     })
@@ -55,10 +56,11 @@ describe('Plants Container', () => {
   
     const pageHeading = screen.getByRole('heading', {name: 'Browse Plants'})
 
-    expect(pageHeading).toBeInTheDocument();
+    expect(pageHeading).toBeInTheDocument()
   })
 
   it('should render the plants container', () => {
+
     const store = mockStore({
       plants: fetchedPlants
     })
@@ -75,12 +77,13 @@ describe('Plants Container', () => {
     const flowerSciName = screen.getByText('Zingiber officinale', { exact: false })
     const flowerImg = screen.getByAltText('garden ginger')
 
-    expect(flowerName).toBeInTheDocument();
-    expect(flowerSciName).toBeInTheDocument();
-    expect(flowerImg).toBeInTheDocument();
+    expect(flowerName).toBeInTheDocument()
+    expect(flowerSciName).toBeInTheDocument()
+    expect(flowerImg).toBeInTheDocument()
   })
 
   it('should render a facts container', () => {
+
     const store = mockStore({
       plants: fetchedPlants
     })
@@ -101,6 +104,7 @@ describe('Plants Container', () => {
   })
 
   it('should render a search container', () => {
+
     const store = mockStore({
       plants: fetchedPlants
     })
@@ -114,13 +118,14 @@ describe('Plants Container', () => {
     )
 
     const searchArea = screen.getByPlaceholderText('Search by plant name...')
-    const searchBtn = screen.getByText('Search');
+    const searchBtn = screen.getByText('Search')
 
     expect(searchArea).toBeInTheDocument()
     expect(searchBtn).toBeInTheDocument()
   })
 
   it('should have search value inputted by user', () => {
+
     const store = mockStore({
       plants: fetchedPlants
     })
@@ -140,6 +145,7 @@ describe('Plants Container', () => {
   })
 
   it('should render filter dropdown form', () => {
+
     const store = mockStore({
       plants: fetchedPlants
     })
@@ -156,6 +162,7 @@ describe('Plants Container', () => {
   })
 
   it('should have filter value selected by user', () => {
+
     const store = mockStore({
       plants: fetchedPlants
     })
@@ -168,11 +175,11 @@ describe('Plants Container', () => {
       </Provider>
     )
     
-    const form = screen.getByTestId('select-one');
-    const userInput = screen.getByTestId('seeds');
+    const form = screen.getByTestId('select-one')
+    const userInput = screen.getByTestId('seeds')
 
     userEvent.selectOptions(form, 'seeds')
     
-    expect(userInput.selected).toBe(true);
+    expect(userInput.selected).toBe(true)
   })
 })

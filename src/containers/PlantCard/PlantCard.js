@@ -1,8 +1,8 @@
-import React from 'react';
+import React from 'react'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types';
-import { addPlant, removePlant } from '../../actions';
-import './PlantCard.scss';
+import PropTypes from 'prop-types'
+import { addPlant, removePlant } from '../../actions'
+import './PlantCard.scss'
 
 const PlantCard = ({ id, plantName, image, sciName, list, isSaved, addPlant, removePlant }) => {
 
