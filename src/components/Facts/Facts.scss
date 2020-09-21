@@ -1,13 +1,13 @@
 @import '../../styles/variables.scss';
 
 .Facts {
-  background-image: linear-gradient($mintGreen, $mintGreen, $mintGreen, $white);
+  background-image: linear-gradient($mintGreen, $mintGreen, $mintGreen, $mintGreen, $white);
   @include textFont(white, 20px);
   padding: 10px;
   padding-bottom: 35px;
 }
 
 .plant-icon {
-  height: 100px;
+  height: 72px;
   justify-self: center;
 }
