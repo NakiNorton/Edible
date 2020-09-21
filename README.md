@@ -25,15 +25,17 @@ The user can save plants to their Saved Plants page, and also remove plants from
 ### Project in Action 
 
 #### Homepage:
-<img src ='readme-assets/homeview.gif' width=540> 
-<br>
+<img src ='readme-assets/homeview.gif' width=740>   
+
+
 #### A user filter the displayed plants edible part category:
-<img src ='readme-assets/filter2.gif ' width=540> 
-<br>
-#### A user can save plants to their 'Saved Plants' page and remove saved plants: 
-<img src ='readme-assets/save-unsave.gif' width=540> 
+<img src ='readme-assets/filter2.gif' width=740>   
+
+
+#### A user can save plants to their 'Saved Plants' page and remove saved plants:   
+<img src ='readme-assets/save-unsave.gif' width=740>   
 
 
 
-#### This application was built by:  
+### This application was built by:  
 Steph Norton: [GitHub](https://github.com/NakiNorton) | [LinkedIn](https://www.linkedin.com/in/stephanie-norton-12888453/) <br>
