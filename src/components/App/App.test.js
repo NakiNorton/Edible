@@ -12,6 +12,24 @@ jest.mock('../../helpers/apiCalls');
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
+describe('App component while loading', () => {
+  it('should display message when page is loading', () => {
+    const store = mockStore({
+      plants: []
+    })
+
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <App />
+        </MemoryRouter>
+      </Provider>
+    )
+  const message = screen.getByText('Page loading...')
+  expect(message).toBeInTheDocument()
+  })
+})
+
 describe('App component', () => {
   let fetchedPlants;
   let store;
@@ -42,10 +60,6 @@ describe('App component', () => {
         plantSaved: false
       }
     ]
- 
-    store = mockStore({
-      plants: []
-    })
 
     fetchEdiblePlants.mockResolvedValue(fetchedPlants);
 
