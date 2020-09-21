@@ -1,8 +1,8 @@
 import React from 'react'
-import configureMockStore from 'redux-mock-store';
+import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk';
 import '@testing-library/jest-dom'
-import { screen, render, fireEvent } from '@testing-library/react'
+import { screen, render, fireEvent, waitFor } from '@testing-library/react'
 import App from './App'
 import { MemoryRouter } from 'react-router-dom';
 import { setPlants, addPlant, removePlant } from '../../actions'
@@ -44,8 +44,12 @@ describe('App component', () => {
       }
     ]
  
+    store = mockStore({
+      plants: []
+    })
+
     fetchEdiblePlants.mockResolvedValue(fetchedPlants);
-  
+
     store = mockStore({
       plants: fetchedPlants
     })
@@ -59,32 +63,134 @@ describe('App component', () => {
         </MemoryRouter>
       </Provider>
     )
+
   })
 
-  it('should display message while page is loading', () => {
-
-    const pageLoadingMsg = screen.getByRole('heading', 
-    { name: 'Page loading...' })
-
-    expect(pageLoadingMsg).toBeInTheDocument();
-  })
-
-  // it.skip('should invoke setPlants action', () => {
-  //   expect(store.dispatch).toHaveBeenCalledTimes(1);
-  //   expect(store.dispatch).toHaveBeenCalledWith(setPlants(fetchedPlants));
+  // it.skip('should display message while page is loading', () => {
+  //   const pageLoadingMsg = screen.getByRole('heading', 
+  //   { name: 'Page loading...' })
+  //   expect(pageLoadingMsg).toBeInTheDocument();
   // })
 
 
+  it('should display the correct information on page load', async () => {
+ 
+   
+    const homeLink = screen.getByText('HOME')
+    const savedPlantsLink = screen.getByText('SAVED PLANTS')
+    const appHeading = screen.getByText('Edible.')
+    const plantsHeading = screen.getByText('Browse Plants')
+    const plantIcon = screen.getByAltText('plant icon')
+    const factsContent = screen.getByText('Even in the modern world,', { exact: false })
 
-  // it.skip('should display the correct information on page load', () => {
-  //   const homeLink = screen.getByText('HOME')
-  //   const savedPlantsLink = screen.getByText('SAVED PLANTS')
-  //   const heading = screen.getByText('Browse Plants')
-    
-  //   expect(homeLink).toBeInTheDocument();
-  //   expect(savedPlantsLink).toBeInTheDocument();
-  //   expect (heading).toBeInTheDocument()
-  // })
+    const rootName = screen.getByText('garden ginger')
+    const rootSciName = screen.getByText('Zingiber officinale', {exact: false})
+    const rootImg = screen.getByAltText('garden ginger', { exact: false })
+    const button = screen.getAllByRole('button', { name: 'Save' })
 
+    await waitFor (() => expect(rootName).toBeInTheDocument())
+    await waitFor(() => expect(rootSciName).toBeInTheDocument())
+    await waitFor(() => expect(rootImg).toBeInTheDocument())
+    await waitFor(() => expect(button).toHaveLength(3))
+
+    expect(homeLink).toBeInTheDocument();
+    expect(savedPlantsLink).toBeInTheDocument();
+    expect(appHeading).toBeInTheDocument()
+    expect(plantsHeading ).toBeInTheDocument()
+    expect(factsContent).toBeInTheDocument()
+    expect(plantIcon).toBeInTheDocument()
+  })
+
+  it('user should be able to search for a plant', async () => {
+    const searchBox = screen.getByPlaceholderText('Search by plant name...')
+    const searchBtn = screen.getByRole('button', { name: 'Search' });
+
+    fireEvent.change(searchBox, { target: { value: 'ginger' } })
+    fireEvent.click(searchBtn)
+
+    const name = await waitFor(() => screen.getByText('garden ginger'))
+    const sciName = await waitFor(() => screen.getByText('Zingiber officinale', { exact: false }))
+    const plantImg = await waitFor(() => screen.getByAltText('garden ginger', { exact: false }))
+
+    expect(name).toBeInTheDocument()
+    expect(sciName).toBeInTheDocument()
+    expect(plantImg).toBeInTheDocument()
+  })
+})
+
+  describe('App component, user save/unsave interaction', () => {
+    it('user should be able to save a plant', () => {
+      const fetchedPlants = [
+        {
+          id: 10978,
+          common_name: 'garden ginger',
+          scientific_name: 'Zingiber officinale',
+          image_url: 'https://bs.floristic.org/image/o/bd13',
+          list: 'leaves',
+          plantSaved: false
+        }
+      ]
+
+      fetchEdiblePlants.mockResolvedValue(fetchedPlants);
+
+      let store = mockStore({
+        plants: fetchedPlants
+      })
+
+      store.dispatch = jest.fn();
+
+      render(
+        <Provider store={store}>
+          <MemoryRouter>
+            <App addPlant={jest.fn()} removePlant={jest.fn()} />
+          </MemoryRouter>
+        </Provider>
+      )
+
+      const id = 10978
+      const saveButton = screen.getByRole('button', { name: 'Save' })
+      
+      fireEvent.click(saveButton)
+
+      expect(store.dispatch).toHaveBeenCalledTimes(1)
+      expect(store.dispatch).toHaveBeenCalledWith(addPlant(id));
+  })
+
+  it('user should be able to unsave a plant', () => {
+    const fetchedPlants = [
+      {
+        id: 10978,
+        common_name: 'garden ginger',
+        scientific_name: 'Zingiber officinale',
+        image_url: 'https://bs.floristic.org/image/o/bd13',
+        list: 'leaves',
+        plantSaved: true
+      }
+    ]
+
+    fetchEdiblePlants.mockResolvedValue(fetchedPlants);
+
+    let store = mockStore({
+      plants: fetchedPlants
+    })
+
+    store.dispatch = jest.fn();
+
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <App addPlant={jest.fn()} removePlant={jest.fn()} />
+        </MemoryRouter>
+      </Provider>
+    )
+
+    const id = 10978
+    const savedButton = screen.queryByRole('button', { name: 'Saved' })
+
+    fireEvent.click(savedButton)
+
+    expect(store.dispatch).toHaveBeenCalledTimes(1)
+    expect(store.dispatch).toHaveBeenCalledWith(removePlant(id));
+  })
 
 })
