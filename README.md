@@ -1,8 +1,9 @@
 ## Edible.
 
 ### Overview
-Edible. is a web application designed for plant lovers who want to start foraging for wild plants. The app uses edible plant data from an open API, Trefle, and displays this data for the user. The user is able to filter the plants being displayed by 'edible part' categories; roots, seeds, flowers, leaves, fruits. The user can also search for plants by common name or scientific name.
-The user can save plants to their Saved Plants page, and also remove plants from this page. 
+Edible. is a web application designed for plant lovers who want to start foraging for wild plants. The user is able to filter the plants being displayed by 'edible part' categories; roots, seeds, flowers, leaves, fruits, and also search for plants by common name or scientific name. The user can save plants to their Saved Plants page, and also remove plants from this page. 
+
+This app was a solo project developed with an open API, Trefle.
 
 ### Technologies and Systems
 - React 
