@@ -124,7 +124,7 @@ describe('Plants Container', () => {
     expect(searchBtn).toBeInTheDocument()
   })
 
-  it('should have search value inputted by user', () => {
+  it('should have the search value inputted by the user', () => {
 
     const store = mockStore({
       plants: fetchedPlants
@@ -138,10 +138,10 @@ describe('Plants Container', () => {
       </Provider>
     )
     const searchInput = screen.getByPlaceholderText('Search by plant name...')
-    
-    fireEvent.change(searchInput, { target: { value: 'ginger' }})
 
-    expect(searchInput).toBeInTheDocument() 
+    fireEvent.change(searchInput, { target: { value: 'ginger' }})
+    
+    expect(searchInput.value).toBe('ginger')
   })
 
   it('should render filter dropdown form', () => {
@@ -161,7 +161,7 @@ describe('Plants Container', () => {
     expect(filterMenu).toBeInTheDocument()
   })
 
-  it('should have filter value selected by user', () => {
+  it('should have the filter value selected by the user', () => {
 
     const store = mockStore({
       plants: fetchedPlants
@@ -181,5 +181,6 @@ describe('Plants Container', () => {
     userEvent.selectOptions(form, 'seeds')
     
     expect(userInput.selected).toBe(true)
+    expect(userInput.value).toBe('seeds')
   })
 })
