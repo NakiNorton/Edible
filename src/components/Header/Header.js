@@ -11,7 +11,6 @@ const Header = () => {
         <li><NavLink to='/saved-plants' className='nav-link saved'>SAVED PLANTS</NavLink></li>
       </ul>
     </header>
-
   )
 }
 

@@ -2,14 +2,11 @@ import React from 'react'
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import '@testing-library/jest-dom'
-import { screen, render, fireEvent, waitFor } from '@testing-library/react'
+import { screen, render, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event';
 import Plants from './Plants'
 import { MemoryRouter } from 'react-router-dom';
-import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { rootReducer } from '../../reducers';
-jest.mock()
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
@@ -21,7 +18,8 @@ describe('Plants Container', () => {
         common_name: 'garden ginger', 
         scientific_name: 'Zingiber officinale', 
         image_url: 'https://bs.floristic.org/image/o/bd13',
-        list: 'leaves'
+        list: 'leaves',
+        plantSaved: false
       },
       {
       id: 19630,
@@ -29,6 +27,7 @@ describe('Plants Container', () => {
         scientific_name: 'Bellis perennis',
         image_url: 'https://bs.floristic.org/image/o/430',
         list: 'leaves',
+        plantSaved: false
       },
       {
         id: 23768,
@@ -36,6 +35,7 @@ describe('Plants Container', () => {
         scientific_name: 'Centaurea cyanus',
         image_url: 'https://bs.floristic.org/image/o/2cd',
         list: 'seeds',
+        plantSaved: false
       }
     ]
   })
@@ -71,8 +71,8 @@ describe('Plants Container', () => {
       </Provider>
     )
 
-    const flowerName = screen.getByText('Common name: garden ginger')
-    const flowerSciName = screen.getByText('Scientific name: Zingiber officinale')
+    const flowerName = screen.getByRole('heading', { name: 'garden ginger', exact: false })
+    const flowerSciName = screen.getByText('Zingiber officinale', { exact: false })
     const flowerImg = screen.getByAltText('garden ginger')
 
     expect(flowerName).toBeInTheDocument();
@@ -80,7 +80,7 @@ describe('Plants Container', () => {
     expect(flowerImg).toBeInTheDocument();
   })
 
-  it('should render a search container', () => {
+  it('should render a facts container', () => {
     const store = mockStore({
       plants: fetchedPlants
     })
@@ -93,11 +93,13 @@ describe('Plants Container', () => {
       </Provider>
     )
 
-    const searchArea = screen.getByPlaceholderText('Search by plant name..')
-    expect(searchArea).toBeInTheDocument()
+    const factsContainer = screen.getByText('Even in the modern world', { exact: false })
+    const plantIcon = screen.getByAltText('plant icon')
+
+    expect(plantIcon).toBeInTheDocument()
+    expect(factsContainer).toBeInTheDocument()
   })
 
-
   it('should render a search container', () => {
     const store = mockStore({
       plants: fetchedPlants
@@ -111,7 +113,7 @@ describe('Plants Container', () => {
       </Provider>
     )
 
-    const searchArea = screen.getByPlaceholderText('Search by plant name..')
+    const searchArea = screen.getByPlaceholderText('Search by plant name...')
     const searchBtn = screen.getByText('Search');
 
     expect(searchArea).toBeInTheDocument()
@@ -130,7 +132,7 @@ describe('Plants Container', () => {
         </MemoryRouter>
       </Provider>
     )
-    const searchInput = screen.getByPlaceholderText('Search by plant name..')
+    const searchInput = screen.getByPlaceholderText('Search by plant name...')
     
     fireEvent.change(searchInput, { target: { value: 'ginger' }})
 

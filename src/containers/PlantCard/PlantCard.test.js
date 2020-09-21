@@ -2,43 +2,39 @@ import React from 'react'
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import '@testing-library/jest-dom'
-import { screen, render } from '@testing-library/react'
+import { screen, render, fireEvent } from '@testing-library/react'
 import PlantCard from './PlantCard'
 import { MemoryRouter } from 'react-router-dom';
-import { createStore } from 'redux';
+import { addPlant, removePlant } from '../../actions'
 import { Provider } from 'react-redux';
-import { rootReducer } from '../../reducers';
-// jest.mock('../../API');
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 describe('PlantCard component', () => {
-  let fetchedRoots;
-  let fetchedFlowers;
+  let store;
   beforeEach(() => {
-    fetchedRoots = [
+    store = mockStore({
+      plants: [
       {
         id: 10978,
         common_name: 'garden ginger',
         scientific_name: 'Zingiber officinale',
-        image_url: 'https://bs.floristic.org/image/o/bd13'
+        image_url: 'https://bs.floristic.org/image/o/bd13',
+        list: 'leaves',
+        plantSaved: false
       },
-    ]
-    fetchedFlowers = [
       {
         id: 23768,
         common_name: 'garden cornflower',
         scientific_name: 'Centaurea cyanus',
-        image_url: 'https://bs.floristic.org/image/o/2cd'
+        image_url: 'https://bs.floristic.org/image/o/2cd',
+        list: 'leaves',
+        plantSaved: false
       }
     ]
   })
 
-  it('should render the plant information', () => {
-    const store = mockStore({
-      roots: fetchedRoots,
-      flowers: fetchedFlowers,
-    })
+  store.dispatch = jest.fn();
 
     render(
       <Provider store={store}>
@@ -46,26 +42,63 @@ describe('PlantCard component', () => {
           <PlantCard
             key={10978}
             id={10978}
-            plantName={'garden ginger'}
+            plantName={'GARDEN GINGER'}
             image={'https://bs.floristic.org/image/o/bd13'}
             sciName={'Zingiber officinale'}
+            list={'leaves'}
+            isSaved={false}
           />
         </MemoryRouter>
       </Provider>
     )
+  })
 
-    const rootName = screen.getByText('Common name: garden ginger')
-    const rootSciName = screen.getByText('Scientific name: Zingiber officinale')
-    const rootImg = screen.getByAltText('garden ginger')
+  it('should render the plant information', () => {
+
+    const rootName = screen.getByText('GARDEN GINGER')
+    const rootSciName = screen.getByText('Zingiber officinale', { exact: false })
+    const rootImg = screen.getByAltText('garden ginger', { exact: false })
+    const button = screen.getByRole('button', { name: 'Save'})
 
     expect(rootName).toBeInTheDocument();
     expect(rootSciName).toBeInTheDocument();
     expect(rootImg).toBeInTheDocument();
+    expect(button).toBeInTheDocument()
   })
 
-/* ADD TEST FOR SAVED PLANTS ************************************
+  it('should fire addPlant action when Save button is clicked', () => {
+    
+  const id = 10978
+  const saveButton = screen.getByRole('button', { name: 'Save' })
+  
+  fireEvent.click(saveButton)
 
-    it('the users saved plants should be displayed with a filled in heart icon', () => {
-    */
+  expect(store.dispatch).toHaveBeenCalledTimes(1);
+  expect(store.dispatch).toHaveBeenCalledWith(addPlant(id));
+  })
 
+  it('should fire removePlant action when Saved button is clicked', () => {
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <PlantCard
+            key={10978}
+            id={10978}
+            plantName={'GARDEN GINGER'}
+            image={'https://bs.floristic.org/image/o/bd13'}
+            sciName={'Zingiber officinale'}
+            list={'leaves'}
+            isSaved={true}
+          />
+        </MemoryRouter>
+      </Provider>
+    )
+    const id = 10978
+    const saveButton = screen.getByRole('button', { name: 'Saved' })
+    
+    fireEvent.click(saveButton)
+
+    expect(store.dispatch).toHaveBeenCalledTimes(1);
+    expect(store.dispatch).toHaveBeenCalledWith(removePlant(id));
+  })
 })
