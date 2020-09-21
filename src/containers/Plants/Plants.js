@@ -31,8 +31,17 @@ class Plants extends Component {
       plant.common_name.includes(upperCaseInput) ||
       plant.scientific_name.toUpperCase()
       .includes(upperCaseInput))
-    this.setState({ searchResults: searchResults })
-    // this.setState({ searchValue: ''}) 
+    searchResults.length ? 
+    this.setState({ searchResults: searchResults }) 
+    : 
+    this.setState({ error: 'Sorry, no matching search results'}) 
+    this.resetErrorMsg(searchResults)
+  }
+
+  resetErrorMsg = (results) => {
+    if(results.length) {
+      this.setState({ error: '' })
+    }
   }
 
   handleFilterFormSelection = (e) => {
@@ -93,6 +102,8 @@ class Plants extends Component {
               />
               <button type='submit' className='searchButton' onClick={this.searchPlants}>Search</button>
               </div>
+            {this.state.error &&
+              <h2 className='error-msg'>{this.state.error}</h2>}
             <form aria-label='select filter value'>
               <select name='filterDropdown' data-testid='select-one' onChange={this.handleFilterFormSelection}>
                 <option value=''>--Filter by--</option>
