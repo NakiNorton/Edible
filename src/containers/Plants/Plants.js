@@ -79,6 +79,8 @@ class Plants extends Component {
   render() {    
     return (
       <section className='Plants'>
+        {this.props.plants.length > 0 &&
+          <>
         <Facts />
         <h1 className='page-heading'>Browse Plants</h1>
         <div className='search-container'>
@@ -107,7 +109,10 @@ class Plants extends Component {
         <section className='plant-container'>
           {this.displayPlants()}
         </section>
+        </>
+        }
       </section>
+      
     )
   }
 }
