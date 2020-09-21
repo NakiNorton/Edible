@@ -12,7 +12,6 @@ jest.mock('../../helpers/apiCalls');
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-
 describe('App component', () => {
   let fetchedPlants;
   let store;
@@ -63,35 +62,19 @@ describe('App component', () => {
         </MemoryRouter>
       </Provider>
     )
-
   })
 
-  // it.skip('should display message while page is loading', () => {
-  //   const pageLoadingMsg = screen.getByRole('heading', 
-  //   { name: 'Page loading...' })
-  //   expect(pageLoadingMsg).toBeInTheDocument();
-  // })
-
-
-  it('should display the correct information on page load', async () => {
- 
-   
+  it('should display the correct information when app loads', () => {
     const homeLink = screen.getByText('HOME')
     const savedPlantsLink = screen.getByText('SAVED PLANTS')
     const appHeading = screen.getByText('Edible.')
     const plantsHeading = screen.getByText('Browse Plants')
     const plantIcon = screen.getByAltText('plant icon')
     const factsContent = screen.getByText('Even in the modern world,', { exact: false })
-
     const rootName = screen.getByText('garden ginger')
     const rootSciName = screen.getByText('Zingiber officinale', {exact: false})
     const rootImg = screen.getByAltText('garden ginger', { exact: false })
     const button = screen.getAllByRole('button', { name: 'Save' })
-
-    await waitFor (() => expect(rootName).toBeInTheDocument())
-    await waitFor(() => expect(rootSciName).toBeInTheDocument())
-    await waitFor(() => expect(rootImg).toBeInTheDocument())
-    await waitFor(() => expect(button).toHaveLength(3))
 
     expect(homeLink).toBeInTheDocument();
     expect(savedPlantsLink).toBeInTheDocument();
@@ -99,6 +82,10 @@ describe('App component', () => {
     expect(plantsHeading ).toBeInTheDocument()
     expect(factsContent).toBeInTheDocument()
     expect(plantIcon).toBeInTheDocument()
+    expect(rootName).toBeInTheDocument()
+    expect(rootSciName).toBeInTheDocument()
+    expect(rootImg).toBeInTheDocument()
+    expect(button).toHaveLength(3)
   })
 
   it('user should be able to search for a plant', async () => {
