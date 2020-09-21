@@ -1,14 +1,14 @@
 import React from 'react'
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
+import configureMockStore from 'redux-mock-store'
+import thunk from 'redux-thunk'
 import '@testing-library/jest-dom'
 import { screen, render, fireEvent } from '@testing-library/react'
 import PlantCard from './PlantCard'
-import { MemoryRouter } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom'
 import { addPlant, removePlant } from '../../actions'
-import { Provider } from 'react-redux';
-const middlewares = [thunk];
-const mockStore = configureMockStore(middlewares);
+import { Provider } from 'react-redux'
+const middlewares = [thunk]
+const mockStore = configureMockStore(middlewares)
 
 describe('PlantCard component', () => {
   let store;
@@ -34,7 +34,7 @@ describe('PlantCard component', () => {
     ]
   })
 
-  store.dispatch = jest.fn();
+  store.dispatch = jest.fn()
 
     render(
       <Provider store={store}>
@@ -55,29 +55,32 @@ describe('PlantCard component', () => {
 
   it('should render the plant information', () => {
 
-    const rootName = screen.getByText('GARDEN GINGER')
-    const rootSciName = screen.getByText('Zingiber officinale', { exact: false })
-    const rootImg = screen.getByAltText('garden ginger', { exact: false })
+    const plantName = screen.getByText('GARDEN GINGER')
+    const sciName = screen.getByText('Zingiber officinale', { exact: false })
+    const plantImg = screen.getByAltText('garden ginger', { exact: false })
+    const category = screen.getByText('leaves', { exact: false })
     const button = screen.getByRole('button', { name: 'Save'})
 
-    expect(rootName).toBeInTheDocument();
-    expect(rootSciName).toBeInTheDocument();
-    expect(rootImg).toBeInTheDocument();
+    expect(plantName).toBeInTheDocument()
+    expect(sciName).toBeInTheDocument()
+    expect(plantImg).toBeInTheDocument()
+    expect(category).toBeInTheDocument()
     expect(button).toBeInTheDocument()
   })
 
   it('should fire addPlant action when Save button is clicked', () => {
     
-  const id = 10978
-  const saveButton = screen.getByRole('button', { name: 'Save' })
-  
-  fireEvent.click(saveButton)
+    const id = 10978
+    const saveButton = screen.getByRole('button', { name: 'Save' })
+    
+    fireEvent.click(saveButton)
 
-  expect(store.dispatch).toHaveBeenCalledTimes(1);
-  expect(store.dispatch).toHaveBeenCalledWith(addPlant(id));
+    expect(store.dispatch).toHaveBeenCalledTimes(1)
+    expect(store.dispatch).toHaveBeenCalledWith(addPlant(id))
   })
 
   it('should fire removePlant action when Saved button is clicked', () => {
+    
     render(
       <Provider store={store}>
         <MemoryRouter>
@@ -93,12 +96,13 @@ describe('PlantCard component', () => {
         </MemoryRouter>
       </Provider>
     )
+
     const id = 10978
     const saveButton = screen.getByRole('button', { name: 'Saved' })
     
     fireEvent.click(saveButton)
 
-    expect(store.dispatch).toHaveBeenCalledTimes(1);
-    expect(store.dispatch).toHaveBeenCalledWith(removePlant(id));
+    expect(store.dispatch).toHaveBeenCalledTimes(1)
+    expect(store.dispatch).toHaveBeenCalledWith(removePlant(id))
   })
 })

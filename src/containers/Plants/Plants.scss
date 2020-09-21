@@ -100,10 +100,49 @@ select {
   transform: scale(1.1);
 }
 
-
 .error-msg {
   @include textFont(black, 16px);
   font-style: italic;
 }
 
+@media (max-width: 950px) {
+  .plant-container {
+    padding: 15px;
+    display: grid; 
+    font-size: 14px;
+    grid-template-columns: 1fr;
+    grid-row: auto;
+    justify-items: center;
+    margin-top: 10em;
+    margin-left: 5em;
+    margin-right: 5em;
+  }
+
+  .page-heading {
+    @include headerFont($orange, 48px);
+    margin: 0.8em;
+  } 
+
+  .search-container {
+    width: 50%;
+    margin-top: 24.5em;
+    position: absolute;
+    transform: translate(-50%, -50%);
+  }
+}
+
+  @media (max-width: 450px) {
+    .search-container {
+    width: 70%;
+    margin-top: 30.5em;
+    position: absolute;
+    transform: translate(-50%, -50%);
+  }
+
+  .plant-container {
+  padding: 25px;
+  display: grid; 
+  font-size: 14px;
+  }
+}
 

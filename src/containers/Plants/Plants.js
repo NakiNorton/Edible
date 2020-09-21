@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import PlantCard from '../PlantCard/PlantCard'
 import Facts from '../../components/Facts/Facts'
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import './Plants.scss';
+import './Plants.scss'
 
 class Plants extends Component {
   constructor() {
@@ -24,8 +24,8 @@ class Plants extends Component {
 
   searchPlants = (e) => {
     e.preventDefault()
-    const { searchValue } = this.state;
-    const { plants } = this.props;
+    const { searchValue } = this.state
+    const { plants } = this.props
     const upperCaseInput = searchValue.toUpperCase()
     const searchResults = plants.filter(plant =>     
       plant.common_name.includes(upperCaseInput) ||
@@ -53,10 +53,10 @@ class Plants extends Component {
     e.preventDefault()
     const { filterValue } = this.state
     const { plants } = this.props
-    if (filterValue) {
-    const filteredPlants = plants.filter(plant => plant.list === filterValue)
-    this.setState({ searchResults: [] })
-    this.setState({ filteredResults: filteredPlants })
+    if(filterValue) {
+      const filteredPlants = plants.filter(plant => plant.list === filterValue)
+      this.setState({ searchResults: [] })
+      this.setState({ filteredResults: filteredPlants })
     }
   }
 
@@ -64,7 +64,7 @@ class Plants extends Component {
     const { filteredResults, searchResults } = this.state
     const { plants } = this.props
     let plantList;
-    if (searchResults.length > 0) {
+    if(searchResults.length > 0) {
       plantList = searchResults
     } else if (filteredResults.length > 0) {
       plantList = filteredResults
@@ -103,7 +103,8 @@ class Plants extends Component {
               <button type='submit' className='searchButton' onClick={this.searchPlants}>Search</button>
               </div>
             {this.state.error &&
-              <h2 className='error-msg'>{this.state.error}</h2>}
+              <h2 className='error-msg'>{this.state.error}</h2>
+            }
             <form aria-label='select filter value'>
               <select name='filterDropdown' data-testid='select-one' onChange={this.handleFilterFormSelection}>
                 <option value=''>--Filter by--</option>
@@ -123,7 +124,6 @@ class Plants extends Component {
         </>
         }
       </section>
-      
     )
   }
 }

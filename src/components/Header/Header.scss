@@ -52,8 +52,16 @@ ul {
   'header'
   'home'
   'saved';
-   align-items: center;
+  align-items: center;
   justify-items: center;
+  }
+
+  .home {
+    padding-left: 0px;
+  }
+
+  .app-header {
+    margin-left: 0px;
   }
 
 }

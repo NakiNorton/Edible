@@ -1,6 +1,6 @@
-import React from 'react';
-import './Facts.scss';
-import plantImage from '../App/sprout.png'
+import React from 'react'
+import './Facts.scss'
+import plantImage from '../../assets/sprout.png'
 
 const Facts  = () => {
   return (
