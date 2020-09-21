@@ -1,68 +1,41 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Edible.
 
-## Available Scripts
+Edible. is a solo project built in 6 days. 
 
-In the project directory, you can run:
+### Overview
+Edible. is a web application designed for plant lovers who want to start foraging for wild plants. The app uses edible plant data from an open API, Trefle, and displays this data for the user. The user is able to filter the plants being displayed by 'edible part' categories; roots, seeds, flowers, leaves, fruits. The user can also search for plants by common name or scientific name.
+The user can save plants to their Saved Plants page, and also remove plants from this page. 
 
-### `npm start`
+### Technologies and Systems
+- React 
+- Redux
+- React Router
+- JSX
+- SCSS
+- Test driven development with:
+    - React testing library
+    - Redux mock store
+    - Jest
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Setup
+1. Clone down this repository to your local machine.
+2. CD into this repo's directory.
+3. Run npm install.
+4. Run npm start.
+5. In your browser navigate to localhost:3000 (or whichever port is provided)
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+### Project in Action 
 
-### `npm test`
+#### Homepage:
+<img src ='readme-assets/homeview.gif' width=540> 
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### A user filter the displayed plants edible part category:
+<img src ='readme-assets/filter2.gif ' width=540> 
 
-### `npm run build`
+#### A user can save plants to their 'Saved Plants' page and remove saved plants: 
+<img src ='readme-assets/save-unsave.gif' width=540> 
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+#### This application was built by:  
+Steph Norton: [GitHub](https://github.com/NakiNorton) | [LinkedIn](https://www.linkedin.com/in/stephanie-norton-12888453/) <br>
