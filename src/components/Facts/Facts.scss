@@ -2,12 +2,12 @@
 
 .Facts {
   background-image: linear-gradient($mintGreen, $mintGreen, $mintGreen, $mintGreen, $white);
-  @include textFont(white, 20px);
+  @include textFont(white, 28px);
   padding: 10px;
   padding-bottom: 35px;
 }
 
 .plant-icon {
-  height: 72px;
+  height: 100px;
   justify-self: center;
 }

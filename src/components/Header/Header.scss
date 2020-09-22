@@ -6,7 +6,7 @@
 
 ul {
   display: grid;
-  grid-auto-columns: 2fr 0.5fr 0.5fr;
+  grid-auto-columns: 1.5fr 0.8fr 0.3fr;
   grid-template-areas:
   'header home saved';
   grid-gap: 10px;
@@ -22,17 +22,15 @@ ul {
   grid-area: header;
   margin: 0px;
   margin-left: 1em;
-  justify-self: left;
 }
 
 .home {
   grid-area: home;
-  padding-left: 4em;
 }
 
 .saved {
   grid-area: saved;
-  justify-self: center;
+  padding-left: 5em;
 }
 
 .nav-link {
@@ -46,6 +44,12 @@ ul {
   color: teal;
 }
 
+@media (max-width: 2000px) {
+   .saved {
+    padding-left: 2.5px;
+  }
+}
+
 @media (max-width: 950px) {
   ul {
   grid-template-areas:
@@ -56,7 +60,7 @@ ul {
   justify-items: center;
   }
 
-  .home {
+  .home, .saved {
     padding-left: 0px;
   }
 
